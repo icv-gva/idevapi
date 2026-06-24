@@ -1,0 +1,34 @@
+{
+    "sProcessing":     "Processant...",
+    "sLengthMenu":     "Mostra _MENU_ registres",
+    "sZeroRecords":    "No s'han trobat registres",
+    "sEmptyTable":     "No hi ha registres disponible en aquesta taula",
+    "sInfo":           "_TOTAL_ registres en total",
+    "sInfoEmpty":      "No hi ha registres disponibles",
+    "sInfoFiltered":   "(filtrat de _MAX_ registres)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Busca:",
+    "sUrl":            "",
+    "sInfoThousands":  ".",
+    "sLoadingRecords": "Carregant...",
+    "oPaginate": {
+        "sFirst":    "Primer",
+        "sPrevious": "Anterior",
+        "sNext":     "Següent",
+        "sLast":     "Últim"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activa per ordenar la columna de manera ascendent",
+        "sSortDescending": ": Activa per ordenar la columna de manera descendent"
+    },
+    "buttons": {
+        "print":  "Imprimeix",
+        "copy":   "Copia",
+        "colvis": "Columnes"
+    },
+    "botonLimpiarFiltros": "Netejar filtres",
+    "botonZoomElementos": "Zoom a elements filtrats",
+    "botonExportarCSV": "Exportar a CSV",
+    "botonExportarGeoJSON": "Exportar a GeoJSON"
+    
+}

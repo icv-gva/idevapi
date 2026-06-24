@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--VENTANA ZOOM A XY-->
+<div id="vZoomXY" class="js-idioma" data-string="vZoomXY" title="Zoom a coordenadas">
+  <div class="ventanaTodo">
+    <div class="js-idioma" data-string="vZoomXYSelecSRS">Seleccione Sistema de Referencia:</div>
+    <div>
+      <select id ="zZoomXYSRS">
+        <option value="25830" selected="selected" class="js-idioma" data-string="vZoomXYETRS89_30">ETRS89 (UTM, Huso 30)</option>
+        <option value="25831" class="js-idioma" data-string="vZoomXYETRS89_31">ETRS89 (UTM, Huso 31)</option>
+        <option value="23030" class="js-idioma" data-string="vZoomXYED50_30">ED50 (UTM, Huso 30)</option>
+        <option value="23031" class="js-idioma" data-string="vZoomXYED50_31">ED50 (UTM, Huso 31)</option>
+        <option value="4326D" class="js-idioma" data-string="vZoomXYWGS84Dec">WGS84 (grados decimales)</option>
+        <option value="4326S" class="js-idioma" data-string="vZoomXYWGS84Sex">WGS84 (grados sexagesimales)</option>
+        </select>
+    </div>
+    <div class="js-idioma" data-string="vZoomXYCoords">Coordenadas a localizar:</div>
+    <div id="vZoomXYCoordXY">
+      &nbsp;&nbsp;X:&nbsp;<input id="zoomX" class="input" maxlength="10" type="text" value="725500"  style="width:120px"><br/>
+      &nbsp;&nbsp;Y:&nbsp;<input id="zoomY" class="input" maxlength="11" type="text" value="4296800" style="width:120px"><br/>
+    </div>
+    <div id="vZoomXYCoordGeoDec" style="display:none">
+      &nbsp;&nbsp;<span class="js-idioma" data-string="vZoomXYLon">Longitud:</span>&nbsp;<input id="zoomLonDec" class="input" maxlength="12" type="text" value="-0.40363592" style="width:85px"><br/>
+      &nbsp;&nbsp;<span class="js-idioma" data-string="vZoomXYLat">Latitud:</span>&nbsp;<input id="zoomLatDec" class="input" maxlength="12" type="text" value="38.79112486" style="width:85px"><br/>
+    </div>
+    <div id="vZoomXYCoordGeoSex" style="display:none">
+      &nbsp;&nbsp;<span class="js-idioma" data-string="vZoomXYLon">Longitud:</span>&nbsp;<input id="zoomLonSexG" class="input" maxlength="2" type="text" style="width:20px">º <input id="zoomLonSexMin" class="input" maxlength="2" type="text" style="width:22px">' <input id="zoomLonSexSeg" class="input" maxlength="10" type="text" style="width:60px">"<br/>
+      &nbsp;&nbsp;<span class="js-idioma" data-string="vZoomXYLat">Latitud:</span>&nbsp;<input id="zoomLatSexG" class="input" maxlength="2" type="text" style="width:22px">º <input id="zoomLatSexMin" class="input" maxlength="2" type="text" style="width:22px">' <input id="zoomLatSexSeg" class="input" maxlength="10" type="text" style="width:60px">"<br/>
+    </div>
+    <div>
+      <input type="checkbox" id="checkBufferZoomXY"><label class="js-idioma" data-string="vZoomXYcheckBufferZoomXY" for="checkBufferZoomXY">Crear zona de influencia</label>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div id="divValorZoomXY"><input type="number" id="valorBufferZoomXY" min="0" max="100000" disabled="true"><span disabled="true">&nbsp;m</span></div>
+    </div>
+    <div class="ventanaPie" style="width: 210px;">
+      <div id="borrarGraficosXY" class="ventanaBoton"><img id="zoomXYImagenBorrar" src="" style="width:16px;height:16px;padding-right:4px;"> <span class="js-idioma" data-string="vZoomXYBorrar">Borrar</span></div>
+      <div id="vZoomXYCapturaPunto" class="ventanaBoton"><img id="ZoomXYImagenCaptura" src="" style="width:16px;height:16px;padding-right:4px;"> <span class="js-idioma" data-string="vZoomXYCaptura">Capturar en mapa</span></div>
+      <div id="zoomAPunto" class="ventanaBoton"><img id="zoomXYImagenZoom" src="" style="width:16px;height:16px;padding-right:4px;"> <span class="js-idioma" data-string="vZoomXYZoom">Zoom a punto</span></div>
+    </div>
+  </div>
+</div>
