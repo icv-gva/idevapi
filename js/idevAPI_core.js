@@ -15,39 +15,43 @@ for (var i = 0; i < scripts.length; i++) {
 	}
 }
 
-if (srcCore.indexOf("idevapi.gva.es/desa/") !== -1) {
-	var urlAPI = "//idevapi.gva.es/desa";
-} else if (srcCore.indexOf("geoidevapi-dsa.gva.es") !== -1) {
-	var urlAPI = "//geoidevapi-dsa.gva.es";
-} else if (srcCore.indexOf("idevapi.gva.es/pre/") !== -1) {
-	var urlAPI = "//idevapi.gva.es/pre";
-} else if (srcCore.indexOf("geoidevapi-pre.gva.es") !== -1) {
-	var urlAPI = "//geoidevapi-pre.gva.es";
-} else if (srcCore.indexOf("idevapi.gva.es/api/") !== -1) {
-	var urlAPI = "//idevapi.gva.es/api";
-} else if (srcCore.indexOf("geoidevapi.gva.es") !== -1) {
-	var urlAPI = "//geoidevapi.gva.es";
-} else {
-	// Fallback para entornos locales: extraer la URL base dinámicamente
-	var urlMatch = srcCore.match(/^(.*?)(\/1\.[0-3]\/)/);
-	if (urlMatch) {
-		var urlAPI = urlMatch[1].replace(/^https?:/, '');
-	} else {
-		var urlAPI = "//geoidevapi.gva.es";
-	}
+// ---- Entry point: jsdelivr -> GVA -> local -> safe-degradation fallback ----
+function detectLoadFamily(srcCore) {
+	var family;
+	family = resolveJsdelivr(srcCore); if (family) return family;
+	family = resolveGVA(srcCore);      if (family) return family;
+	family = resolveLocal(srcCore);    if (family) return family;
+	return { urlAPI: "../../idevapi", URLVersion: "" };
 }
 
-
-// ********** URL VERSIÓN *********************
-if (srcCore.indexOf("/1.0/") !== -1) {
-	var URLVersion = "/1.0";
-} else if (srcCore.indexOf("/1.1/") !== -1) {
-	var URLVersion = "/1.1";
-} else if (srcCore.indexOf("/1.2/") !== -1) {
-	var URLVersion = "/1.2";
-} else {
-	var URLVersion = "/1.3";
+// jsdelivr: tag-agnostic. Matches @1.3.19, @1.3.20, @1.3.21, @1.3, @1, @latest.
+function resolveJsdelivr(srcCore) {
+	var m = srcCore.match(/(https?:)?(\/\/cdn\.jsdelivr\.net\/gh\/[^/]+\/[^/]+@[^/]+)/);
+	if (m) return { urlAPI: m[2], URLVersion: "" };
+	return null;
 }
+
+// GVA: 6 sub-environments, grouped legacy-path-first then modern-hostname-first.
+function resolveGVA(srcCore) {
+	if (srcCore.indexOf("idevapi.gva.es/desa/") !== -1)  return { urlAPI: "//idevapi.gva.es/desa",  URLVersion: "/1.3" };
+	if (srcCore.indexOf("idevapi.gva.es/pre/")  !== -1)  return { urlAPI: "//idevapi.gva.es/pre",   URLVersion: "/1.3" };
+	if (srcCore.indexOf("idevapi.gva.es/api/")  !== -1)  return { urlAPI: "//idevapi.gva.es/api",   URLVersion: "/1.3" };
+	if (srcCore.indexOf("geoidevapi-dsa.gva.es") !== -1) return { urlAPI: "//geoidevapi-dsa.gva.es", URLVersion: "/1.3" };
+	if (srcCore.indexOf("geoidevapi-pre.gva.es") !== -1) return { urlAPI: "//geoidevapi-pre.gva.es", URLVersion: "/1.3" };
+	if (srcCore.indexOf("geoidevapi.gva.es")    !== -1)  return { urlAPI: "//geoidevapi.gva.es",    URLVersion: "/1.3" };
+	return null;
+}
+
+// Local (pattern beta): conservative — only the literal "idevapi/js/idevAPI_core" shape.
+function resolveLocal(srcCore) {
+	var m = srcCore.match(/^(.*\/)idevapi\/js\/idevAPI_core/);
+	if (m) return { urlAPI: "../../idevapi", URLVersion: "" };
+	return null;
+}
+
+var family = detectLoadFamily(srcCore);
+var urlAPI = family.urlAPI;
+var URLVersion = family.URLVersion;
 
 // ********** URL DEFINITIVA *********************
 urlAPI += URLVersion;
@@ -72,7 +76,7 @@ var sufMin = "-min";
 if (getScriptName().indexOf("-min.js") == -1) { sufMin = ""; }
 // ************************************* VERSIONES LIBRERÍAS *********************************************
 var llDir = "lf_194"; //Directorio librerías leaflet
-var IDEVAPIVersion = "1.3.20";	//Versión menor para evitar caché en el cliente en nuevas versiones
+var IDEVAPIVersion = "1.3.21";	//Versión menor para evitar caché en el cliente en nuevas versiones
 
 ////////////////////// VARIABLES GLOBALES POR DEFECTO /////////////////////////////////////////////////////////////////////
 var capaConsulta = null;
