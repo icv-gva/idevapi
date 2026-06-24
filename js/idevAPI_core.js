@@ -26,7 +26,7 @@ function detectLoadFamily(srcCore) {
 
 // jsdelivr: tag-agnostic. Matches @1.3.19, @1.3.20, @1.3.21, @1.3, @1, @latest.
 function resolveJsdelivr(srcCore) {
-	var m = srcCore.match(/(https?:)?(\/\/cdn\.jsdelivr\.net\/gh\/[^/]+\/[^/]+@[^/]+)/);
+	var m = srcCore.match(/(https?:)?(\/\/cdn.jsdelivr.net\/gh\/[^/]+\/[^/]+@[^/]+)/);
 	if (m) return { urlAPI: m[2], URLVersion: "" };
 	return null;
 }
