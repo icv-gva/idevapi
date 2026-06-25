@@ -1,2 +1,0 @@
-(function(){var a=/^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/;function r(e){if(typeof e!="string")return null;var n=a.exec(e.trim());return n?[parseInt(n[1]||0,10),parseInt(n[2]||0,10),parseInt(n[3]||0,10),parseInt(n[4]||0,10),parseInt(n[5]||0,10),parseInt(n[6]||0,10),parseInt(n[7]||0,10)]:null}window.nezasa||(window.nezasa={}),window.nezasa.iso8601||(window.nezasa.iso8601={}),window.nezasa.iso8601.Period={parse:r}})();
-//# sourceMappingURL=iso8601-parser-min.js.map

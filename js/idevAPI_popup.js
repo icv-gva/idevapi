@@ -141,12 +141,12 @@ var MySource = L.WMS.Source.extend({
 function creaHTMLCabecera (nombreCampo,valor,mostrarTitulo){
   if (mostrarTitulo){
     txtColSpan = " colspan='2'";
-    txtNomCampo = "<span class='idevapi-tabla-cabecera-titulo'>" + nombreCampo + "</span><span>: </span>";
+    txtNomCampo = "<span class='cabeceraTitulo'>" + nombreCampo + "</span><span>: </span>";
   } else {
     txtColSpan = "";
     txtNomCampo = "";
   }
-  var html = "<tr><td class='idevapi-tabla-cabecera'" + txtColSpan + ">" + txtNomCampo + "<span class='idevapi-tabla-cabecera-valor'>" + valor + "</span></td></tr>";
+  var html = "<tr><td class='cabecera'" + txtColSpan + ">" + txtNomCampo + "<span class='cabeceraValor'>" + valor + "</span></td></tr>";
   return html;
 }
 
@@ -172,16 +172,16 @@ function creaTemplatePopupGeoJSON (feature,tablaInfo) {
 //Crea la tabla info de elementos que se insertará en un HTML (Crea una tabla)
 function creaTablaPopupGeoJSON (feature,tablaInfo) {
 	if(tablaInfo.estilo == 'ICV'){
-    var html = "<table class='idevapi-tabla-info-icv'>";
+    var html = "<table class='tablaInfoICV'>";
   } else if (tablaInfo.estilo == 'GVA') {
-		var html = "<table class='idevapi-tabla-info-gva'>";
+		var html = "<table class='tablaInfoGVA'>";
 	} else {
-		var html = "<table class='idevapi-tabla-info'>";
+		var html = "<table class='tablaInfo'>";
 	}
   ///////////// CABECERA //////////
   if (tablaInfo.mostrarNombreCampos){txtColSpan = " colspan='2'";} else {txtColSpan = "";}
   if (tablaInfo.titulo !== "IDEVAPI_Valor" && tablaInfo.titulo !== "") {
-    html += "<tr><td class='idevapi-tabla-cabecera'" + txtColSpan + ">" + tablaInfo.titulo + "</td></tr>";
+    html += "<tr><td class='cabecera'" + txtColSpan + ">" + tablaInfo.titulo + "</td></tr>";
   }
   var cont = 0;
   //***********************************************************************************************************
@@ -226,8 +226,8 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
       //*************************************************************** El campo no contiene ningún valor *********************************************************************
       if ((feature.propertiesAlias[i] == null) || (feature.propertiesAlias[i] == "null")) {
 				html += "<tr>";
-				if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-				html += "<td class='idevapi-tabla-valor'" + estiloExtra +"></td></tr>";
+				if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+				html += "<td class='tValor'" + estiloExtra +"></td></tr>";
       //**************************************************************** Imagen o vídeo incrustado en la tabla ****************************************************************
 			} else if (i.indexOf("enlaceIncrustado|") !== -1) {
 				//SI el contenido del enlace NO es vacío
@@ -246,18 +246,18 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
                 html += "<tr>";
                 //if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
                 if (tablaInfo.mostrarNombreCampos) {
-                  html += "<td colspan=2 class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
+                  html += "<td colspan=2 class='tValor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
                 } else {
-                  html += "<td class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
+                  html += "<td class='tValor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
                 }
               } else {
                 html += "<tr>";
-                if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-                html += "<td class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
+                if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+                html += "<td class='tValor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
               }
             //VIDEO
 						} else if (tipoEnlace == "vid") {
-							html += "<tr><td class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><video controls src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></video></td></tr>";
+							html += "<tr><td class='tValor' style='text-align: center;" + estiloExtra2 + "'><video controls src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></video></td></tr>";
 							//html += "<tr><td class='tablaValor'><video controls style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'><source src='" + feature.propertiesAlias[i] + "' type='video/mp4'></video></td></tr>";
 						}
 
@@ -269,17 +269,17 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
               if (nombreCampo == "") {
                 html += "<tr>";
 							  //if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
-                html += "<td colspan=2 class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
+                html += "<td colspan=2 class='tValor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></td></tr>";
               } else {
                 html += "<tr>";
-                if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-                html += "<td class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;align:center;'></td></tr>";
+                if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+                html += "<td class='tValor' style='text-align: center;" + estiloExtra2 + "'><img src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;align:center;'></td></tr>";
               }
             //VIDEO
 						} else if (tipoEnlace == "vid"){
 							html += "<tr>";
-							if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-							html += "<td class='idevapi-tabla-valor' style='text-align: center;" + estiloExtra2 + "'><video controls src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></video></td></tr>";
+							if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+							html += "<td class='tValor' style='text-align: center;" + estiloExtra2 + "'><video controls src='" + feature.propertiesAlias[i] + "' style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'></video></td></tr>";
 							//html += "<tr><td class='tablaNombre'>" + nombreCampo + "</td><td class='tablaValor'><video controls style='width:" + tamanyoAncho + "px;height:" + tamanyoAlto + "px;'><source src='" + feature.propertiesAlias[i] + "' type='video/mp4'></video></td></tr>";
 						}
 					}
@@ -288,11 +288,11 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
           if (IDEVAPI_global.idioma != 'va') {var msjSinContenido = "Sin contenido";} else {var msjSinContenido = "Sense contingut";}
 					if (numCamposAlias == 1) {
 						//Campo enlaceIDEV sin enlace
-						html += "<tr><td class='idevapi-tabla-valor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
+						html += "<tr><td class='tValor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
 					} else {
 						html += "<tr>";
-						if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-						html += "<td class='idevapi-tabla-valor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
+						if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+						html += "<td class='tValor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
 					}
 				}
       //**************************************************************** Imagen o vídeo con enlace que se abrirá con ventana independiente y tamaño concreto ****************************************************************
@@ -305,38 +305,38 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
           var top = (screen.height/2)-(h/2)
           //Campo ENLACE Normal
           html += "<tr>";
-          if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
+          if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
           var funcionAbreVentana = "window.open('" + feature.propertiesAlias[i] + "','EnlaceVentanaIDEV','toolbar=no, location=no, directories=no, titlebar=no,status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width="+w+", height="+h+", top="+top+", left="+left+"');";
           //Campo ENLACE: Si no hay nombre para el enlace
           if (valorEnlace == "") {
-            html += "<td class='idevapi-tabla-valor'" + estiloExtra +"><div class='idevapi-enlace' onclick=\"" + funcionAbreVentana + "\">" + nombreCampo + "</a></td></tr>";
+            html += "<td class='tValor'" + estiloExtra +"><div class='idevapiEnlace' onclick=\"" + funcionAbreVentana + "\">" + nombreCampo + "</a></td></tr>";
           //Campo ENLACE: Si hay definido un texto para el enlace (caracter "|" después del alias del campo)
           } else {
-            html += "<td class='idevapi-tabla-valor'" + estiloExtra +"><div class='idevapi-enlace' onclick=\"" + funcionAbreVentana + "\">" + valorEnlace + "</a></td></tr>";
+            html += "<td class='tValor'" + estiloExtra +"><div class='idevapiEnlace' onclick=\"" + funcionAbreVentana + "\">" + valorEnlace + "</a></td></tr>";
           }
         //SI el contenido del enlace está vacío
         } else {
           if (IDEVAPI_global.idioma != 'va') {var msjSinContenido = "Sin contenido";} else {var msjSinContenido = "Sense contingut";}
 					if (numCamposAlias == 1) {
 						//Campo enlaceIDEV sin enlace
-						html += "<tr><td class='idevapi-tabla-valor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
+						html += "<tr><td class='tValor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
 					} else {
 						html += "<tr>";
-						if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-						html += "<td class='idevapi-tabla-valor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
+						if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+						html += "<td class='tValor'" + estiloExtra +">" + msjSinContenido + "</td></tr>";
 					}
         }
       //**************************************************************** Imagen o vídeo con enlace que se abrirá con ventana independiente ****************************************************************
 			} else if ((feature.propertiesAlias[i].toString().indexOf("http://") !== -1) || (feature.propertiesAlias[i].toString().indexOf("https://") !== -1))  {
 				//Campo ENLACE Normal
 				html += "<tr>";
-				if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
+				if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
         //Campo ENLACE: Si no hay nombre para el enlace
         if (valorEnlace == "") {
-          html += "<td class='idevapi-tabla-valor'" + estiloExtra +"><a href='" + feature.propertiesAlias[i] + "' target='_blank'>" + nombreCampo + "</a></td></tr>";
+          html += "<td class='tValor'" + estiloExtra +"><a href='" + feature.propertiesAlias[i] + "' target='_blank'>" + nombreCampo + "</a></td></tr>";
         //Campo ENLACE: Si hay definido un texto para el enlace (caracter "|" después del alias del campo)
         } else {
-          html += "<td class='idevapi-tabla-valor'" + estiloExtra +"><a href='" + feature.propertiesAlias[i] + "' target='_blank'>" + valorEnlace + "</a></td></tr>";
+          html += "<td class='tValor'" + estiloExtra +"><a href='" + feature.propertiesAlias[i] + "' target='_blank'>" + valorEnlace + "</a></td></tr>";
         }
       //**************************************************************** Campo normal ****************************************************************
 			} else {
@@ -346,8 +346,8 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
           html += creaHTMLCabecera (nombreCampo,feature.propertiesAlias[i],tablaInfo.mostrarNombreCampos);
         } else {
           html += "<tr>";
-          if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + nombreCampo + "</td>"};
-          html += "<td class='idevapi-tabla-valor'" + estiloExtra +">" + feature.propertiesAlias[i] + "</td></tr>";
+          if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + nombreCampo + "</td>"};
+          html += "<td class='tValor'" + estiloExtra +">" + feature.propertiesAlias[i] + "</td></tr>";
         }
 			}
       cont++;
@@ -370,13 +370,13 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
       //Si el campo es de valor nulo
 			if (feature.properties[i] == null) {
         html += "<tr>";
-				if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + i + "</td>";};
-				html += "<td class='idevapi-tabla-valor'" + estiloExtra +"></td></tr>";
+				if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + i + "</td>";};
+				html += "<td class='tValor'" + estiloExtra +"></td></tr>";
       //Si el campo tiene un enlace
 			} else if ((feature.properties[i].toString().indexOf("http://") !== -1) || (feature.properties[i].toString().indexOf("https://") !== -1)) {
         html += "<tr>";
-        if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + i + "</td>";};
-				html += "<td class='idevapi-tabla-valor'" + estiloExtra +"><a href='" + feature.properties[i] + "' target='_blank'>Enlace</a></td></tr>";
+        if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + i + "</td>";};
+				html += "<td class='tValor'" + estiloExtra +"><a href='" + feature.properties[i] + "' target='_blank'>Enlace</a></td></tr>";
 			//Si es un Campo Normal
       } else {
         if (cont == 0 && tablaInfo.titulo == "IDEVAPI_Valor") {
@@ -384,8 +384,8 @@ function creaTablaPopupGeoJSON (feature,tablaInfo) {
           html += creaHTMLCabecera (i,feature.properties[i],tablaInfo.mostrarNombreCampos);
         } else {
           html += "<tr>";
-          if (tablaInfo.mostrarNombreCampos){html += "<td class='idevapi-tabla-nombre'>" + i + "</td>";};
-          html += "<td class='idevapi-tabla-valor'" + estiloExtra +">" + feature.properties[i] + "</td></tr>";
+          if (tablaInfo.mostrarNombreCampos){html += "<td class='tNombre'>" + i + "</td>";};
+          html += "<td class='tValor'" + estiloExtra +">" + feature.properties[i] + "</td></tr>";
         }
 			}
       cont++;
@@ -506,13 +506,13 @@ function modificarPopup (html1, opciones){
   //Se elimina el margen de 8 px por defecto del PopupInfo
   //$(html1).find("body").css("margin","0px");
   if(opciones.tipo == "GeoJSON"){
-    $(html1).find("body").addClass("idevapi-body-info");
+    $(html1).find("body").addClass("bodyInfo");
   }
-  //$(html1).find("body").addClass("idevapi-body-info");
+  //$(html1).find("body").addClass("bodyInfo");
   ////////////////////////////////////////////////// Caso particular LABORA /////////////////////////////////////
   if(opciones.url == "carto.icv.gva.es/arcgis/services/tm_empleo/labora/MapServer/WmsServer" || opciones.url == "carto.icv.gva.es/arcgis/services/tm_empleo/labora/MapServer/WMSServer"){
-    var tablaNombre =  html1.getElementsByClassName('idevapi-tabla-nombre');
-    var tablaValor =  html1.getElementsByClassName('idevapi-tabla-valor');
+    var tablaNombre =  html1.getElementsByClassName('tNombre');
+    var tablaValor =  html1.getElementsByClassName('tValor');
     if(opciones.titulo == "Punt Labora" || opciones.titulo == "Punto Labora" ){
       for (var i = 0; i < tablaNombre.length; i++) {
         if (tablaNombre[i].innerHTML == "Nombre" || tablaNombre[i].innerHTML == "Nom"){
@@ -839,17 +839,15 @@ function popupGeoJSONCluster(markerCluster,tablaInfo){
       //Si no está capturando XY, abre la info del elemento (hace un bindPopup a mano)
       } else {
         if (a.layer._zoom == markerCluster._map.options.maxZoom){
-          //Si el zoom es el máximo que permite el mapa, abre el popup
+          //Si el zoom es el máximo que permite el mapa, abre el popup (Si no hará zoom al clúster hasta que sea zoom máximo)
           var html = "";
-          var markers = a.layer.getAllChildMarkers();
-          var num = markers.length;
+          var num = a.layer._markers.length;
           var cont = 0;
-          for (var i = 0; i < num; i++){
-            var m = markers[i];
+          for (feat in a.layer._markers){
             if (tablaInfo.template !== null) {
-              html += creaTemplatePopupGeoJSON(m.feature,tablaInfo);
+              html += creaTemplatePopupGeoJSON(a.layer._markers[feat].feature,tablaInfo);
             } else {
-              html += creaTablaPopupGeoJSON(m.feature,tablaInfo);
+              html += creaTablaPopupGeoJSON(a.layer._markers[feat].feature,tablaInfo);
             }
             if (cont != num-1) {
               html += "<div style='height:5px;'></div>";
@@ -858,7 +856,7 @@ function popupGeoJSONCluster(markerCluster,tablaInfo){
           }
           var html1 = document.createElement('html');
           html1.innerHTML = html;
-          html1 = modificarPopup(html1, {url:m.feature.urlCapa, titulo:m.feature.tituloCapa, tipo:"GeoJSON"});
+          html1 = modificarPopup(html1, {url:a.layer._markers[feat].feature.urlCapa, titulo:a.layer._markers[feat].feature.tituloCapa, tipo:"GeoJSON"});
           //as we have the content, we should add the popup to the map add the coordinate that is inherent in the cluster:
           var popup = L.popup({
               'maxWidth': '450px',
@@ -881,72 +879,11 @@ function popupGeoJSONCluster(markerCluster,tablaInfo){
       }
     });
   }
-
-  // NOTE (PAUPER, 2026-03-17): Cuando singleMarkerMode=true (mostrar1Elem:true), los puntos individuales
-  // se renderizan como cluster de 1 elemento. El evento 'click' del layer original queda suprimido
-  // por el cluster. Se escucha el evento 'click' en el grupo para capturar esos puntos individuales.
-  // NOTE (PAUPER, 2026-03-17): Listener para puntos individuales manejados por el cluster
-  markerCluster.on('click', function(a) {
-    if (capturandoPuntoXY) {
-      eventoClicCapturarXY(a);
-    } else {
-      var layer = a.layer;
-      
-      // Si el layer no tiene popupPers, podría ser un cluster de 1 elemento (singleMarkerMode)
-      // En ese caso, el marcador real está dentro del cluster.
-      if (!layer.popupPers && layer.getAllChildMarkers) {
-        var children = layer.getAllChildMarkers();
-        if (children.length > 0) {
-          layer = children[0];
-        }
-      }
-
-      // Si aún no lo tiene pero sí tiene feature, lo inicializamos (fallback de seguridad)
-      if (!layer.popupPers && layer.feature) {
-        popupGeoJSON(layer.feature, layer, tablaInfo);
-      }
-
-      if (layer.popupPers) {
-        modificaAnchoInfo(tablaInfo.ancho);
-        layer.popupPers.setLatLng(a.latlng).addTo(map).openOn(map);
-      }
-    }
-  });
 }
-
 
 function IDEVAPI_obtenerDatosElemento(idInternoCapa, callback) {
 //window.obtenerDatosElemento = function(idInternoCapa, callback) {
   let capaMapa = IDEVAPI[0].capas.find(x => x.idInterno === idInternoCapa);
-
-  const extraeFeatureEvento = (event) => {
-    if (!event) {
-      return null;
-    }
-
-    if (event.layer && event.layer.feature) {
-      return event.layer.feature;
-    }
-
-    if (event.sourceTarget && event.sourceTarget.feature) {
-      return event.sourceTarget.feature;
-    }
-
-    if (event.target && event.target.feature) {
-      return event.target.feature;
-    }
-
-    // En clústeres, si el click llega sobre un clúster de 1 elemento,
-    // devolvemos la feature real del único marcador hijo.
-    if (event.layer && typeof event.layer.getAllChildMarkers === "function") {
-      const children = event.layer.getAllChildMarkers();
-      if (children.length === 1 && children[0].feature) {
-        return children[0].feature;
-      }
-    }
-
-    return null;
-  };
   
   if(capaMapa) {
     if (capaMapa.tipo == "GeoJSON") {
@@ -955,23 +892,11 @@ function IDEVAPI_obtenerDatosElemento(idInternoCapa, callback) {
 
         capas.forEach(layer => {
           if (layer.idInterno === idInternoCapa) {
-            const notifyCallback = (event) => {
-              const feature = extraeFeatureEvento(event);
-              if (feature) {
-                callback(feature);
-              }
-            };
-
             layer.on({
-              click: notifyCallback
+              click: element => {
+                callback(element.layer.feature);
+              }
             });
-
-            if (layer.markerCluster) {
-              layer.markerCluster.on({
-                click: notifyCallback,
-                clusterclick: notifyCallback
-              });
-            }
           }
         });
       });

@@ -28,7 +28,7 @@ function traduceElementosWidget(elementoInput) {
 			return;
 		}
 	}
-	$(elemento).find('.idevapi-js-idioma').each( function() {
+	$(elemento).find('.js-idioma').each( function() {
 		var cadena = $(this).attr('data-string');
 		//Para los títulos de los diálogos en JQuery
 		if ($(this).hasClass("ui-dialog-content") && $(this).hasClass("ui-widget-content")){
@@ -47,19 +47,9 @@ function traduceElementosWidget(elementoInput) {
 }
 
 //Añade la clase según el estilo seleccionado para las ventanas
-function modificaEstiloVentanas (idOElemento, estilo) {
-	var ventana;
-	if (typeof idOElemento === "string") {
-		ventana = $("div[aria-describedby='" + idOElemento + "']");
-	} else {
-		// Asumimos que es un objeto jQuery del contenido, buscamos su parent .ui-dialog
-		ventana = idOElemento.closest(".ui-dialog");
-	}
-
-	if (ventana && ventana.length > 0) {
-		// Siempre añadimos idevapi-root al wrapper del diálogo para que los estilos scoped funcionen
-		$(ventana).addClass("idevapi-root");
-
+function modificaEstiloVentanas (idVentana,estilo) {
+	var ventana = $("div[aria-describedby='" + idVentana + "']");
+	if (ventana.length > 0) {
 		if (estilo == "GVA") {
 			$(ventana).addClass("ui-widgetGVA");
 			var cabecera = $(ventana).find(".ui-widget-header");
@@ -70,17 +60,10 @@ function modificaEstiloVentanas (idOElemento, estilo) {
 			if (botonCerrar.length > 0) {
 				$(botonCerrar).addClass("ui-dialog-titlebar-closeGVA");
 			}
-			var botonesVentana = $(ventana).find(".idevapi-ventana-boton");
+			var botonesVentana = $(ventana).find(".ventanaBoton");
 			$(botonesVentana).each(function(i){
-				$(this).addClass("idevapi-ventana-boton-gva");
+				$(this).addClass("ventanaBotonGVA");
 			});
-		} else if (estilo == "ICV" || estilo == "" || estilo == undefined) {
-			// Por defecto o ICV usamos el estilo azul corporativo
-			$(ventana).addClass("ui-widgetICV");
-			var cabecera = $(ventana).find(".ui-widget-header");
-			if (cabecera.length > 0) {
-				$(cabecera).addClass("ui-widget-headerICV");
-			};
 		}
 	}
 }
@@ -97,9 +80,8 @@ function normalizeText(text) {
 //Si se le pasa un vector con valores, se devuelve el mismo vector filtrado
 function filtroGeoJSON (capa,campo,valor,tipo,operador){
 
-    if (capa.features !== undefined){ var datos = capa.features; } else { var datos = capa; }
+    if (capa.features !== undefined){datos = capa.features;} else {datos = capa;}
     if (tipo == undefined){tipo = "equal";}
-	var res;
 	if (tipo == "numero") {
 		res = $.grep(datos, function(dato) {
             let campoValor = parseFloat(dato.properties[campo]); // Convertir a número

@@ -3,7 +3,7 @@
  * Do not forget to include the css file.
  */
 
-(function (L) {
+(function(L) {
     if (typeof L === 'undefined') {
         throw new Error('Leaflet must be included first');
     }
@@ -25,7 +25,7 @@
         },
 
         // Class names are error prone texts, so write them once here
-        _initClassesNames: function () {
+        _initClassesNames: function() {
             this.cls = {
                 children: 'leaflet-layerstree-children',
                 childrenNopad: 'leaflet-layerstree-children-nopad',
@@ -43,7 +43,7 @@
             };
         },
 
-        initialize: function (capasNormales, capasArbol, mapa, parametrosLeyenda, options) {
+        initialize: function(capasNormales, capasArbol,mapa,parametrosLeyenda,options) {
             this._scrollTop = 0;
             this._initClassesNames();
             this._capasArbol = null;
@@ -62,39 +62,39 @@
             this._listaNodosDestacados = [];
         },
 
-        setCapasArbol: function (tree) {
-            rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+        setCapasArbol: function(tree) {
+            rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
             return this._setTrees(tree);
         },
 
-        setCapasNormales: function (tree) {
-            rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+        setCapasNormales: function(tree) {
+            rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
             return this._setTrees(undefined, tree);
         },
 
-        addBaseLayer: function (layer, name) {
+        addBaseLayer: function(layer, name) {
             throw 'addBaseLayer is disabled';
         },
 
-        addOverlay: function (layer, name) {
+        addOverlay: function(layer, name) {
             throw 'addOverlay is disabled';
         },
 
-        removeLayer: function (layer) {
+        removeLayer: function(layer) {
             throw 'removeLayer is disabled';
         },
 
-        collapse: function () {
+        collapse: function() {
             this._scrollTop = this._sect().scrollTop;
             return L.Control.Layers.prototype.collapse.call(this);
         },
 
-        expand: function () {
+        expand: function() {
             var ret = L.Control.Layers.prototype.expand.call(this);
             this._sect().scrollTop = this._scrollTop;
         },
 
-        onAdd: function (map) {
+        onAdd: function(map) {
             function changeName(layer) {
                 if (layer._layersTreeName) {
                     toggle.innerHTML = layer._layersTreeName;
@@ -107,16 +107,16 @@
             if (this.options.namedToggle) {
                 L.DomUtil.addClass(toggle, 'leaflet-layerstree-named-toggle');
                 // Start with this value...
-                map.eachLayer(function (layer) { changeName(layer); });
+                map.eachLayer(function(layer) {changeName(layer);});
                 // ... and change it whenever the baselayer is changed.
-                map.on('baselayerchange', function (e) { changeName(e.layer); }, this);
+                map.on('baselayerchange', function(e) {changeName(e.layer);}, this);
             }
 
             return ret;
         },
 
         // Expands the whole tree (base other overlays)
-        expandTree: function (overlay) {
+        expandTree: function(overlay) {
             var container = overlay ? this._overlaysList : this._baseLayersList;
             if (container) {
                 this._applyOnTree(container, false);
@@ -125,7 +125,7 @@
         },
 
         // Collapses the whole tree (base other overlays)
-        collapseTree: function (overlay) {
+        collapseTree: function(overlay) {
             var container = overlay ? this._overlaysList : this._baseLayersList;
             if (container) {
                 this._applyOnTree(container, true);
@@ -134,7 +134,7 @@
         },
 
         // Expands the tree, only to show the selected inputs
-        expandSelected: function (overlay) {
+        expandSelected: function(overlay) {
             function iter(el) {
                 // Function to iterate the whole DOM upwards
                 var p = el.parentElement;
@@ -171,12 +171,12 @@
         },
 
         // "private" methods, not exposed in the API
-        _sect: function () {
+        _sect: function() {
             // to keep compatibility after 1.3 https://github.com/Leaflet/Leaflet/pull/6380
             return this._section || this._form;
         },
 
-        _setTrees: function (base, overlays) {
+        _setTrees: function(base, overlays) {
             var id = 0; // to keep unique id
             function iterate(tree, output, overlays) {
                 if (tree && tree.layer) {
@@ -186,7 +186,7 @@
                     output[id++] = tree.layer;
                 }
                 if (tree && tree.children && tree.children.length) {
-                    tree.children.forEach(function (child) {
+                    tree.children.forEach(function(child) {
                         iterate(child, output, overlays);
                     });
                 }
@@ -196,7 +196,7 @@
             // We accept arrays, but convert into an object with children
             function forArrays(input) {
                 if (Array.isArray(input)) {
-                    return { noShow: true, children: input };
+                    return {noShow: true, children: input};
                 } else {
                     return input
                 }
@@ -226,7 +226,7 @@
         },
 
         // Used to update the vertical scrollbar
-        _localExpand: function () {
+        _localExpand: function() {
             if (this._map && L.DomUtil.hasClass(this._container, 'leaflet-control-layers-expanded')) {
                 var top = this._sect().scrollTop;
                 this.expand();
@@ -237,13 +237,13 @@
         },
 
         // collapses or expands the tree in the containter.
-        _applyOnTree: function (container, collapse) {
+        _applyOnTree: function(container, collapse) {
             var iters = [
-                { cls: this.cls.children, hide: collapse },
-                { cls: this.cls.opened, hide: collapse },
-                { cls: this.cls.closed, hide: !collapse },
+                {cls: this.cls.children, hide: collapse},
+                {cls: this.cls.opened, hide: collapse},
+                {cls: this.cls.closed, hide: !collapse},
             ];
-            iters.forEach(function (it) {
+            iters.forEach(function(it) {
                 var els = container.getElementsByClassName(it.cls);
                 for (var i = 0; i < els.length; i++) {
                     var el = els[i];
@@ -259,11 +259,11 @@
         },
 
         // it is called in the original _update, and shouldn't do anything.
-        _addItem: function (obj) {
+        _addItem: function(obj) {
         },
 
         // overwrite _update function in Control.Layers
-        _update: function () {
+        _update: function() {
             if (!this._container) { return this; }
             L.Control.Layers.prototype._update.call(this);
             this._addTreeLayout(this._capasArbol, false);
@@ -272,7 +272,7 @@
         },
 
         // Create the DOM objects for the tree
-        _addTreeLayout: function (tree, overlay) {
+        _addTreeLayout: function(tree, overlay) {
             if (!tree) return;
             var container = overlay ? this._overlaysList : this._baseLayersList;
             this._expandCollapseAll(overlay, this.options.collapseAll, this.collapseTree);
@@ -282,38 +282,49 @@
                 // to keep compatibility
                 this._checkDisabledLayers();
             }
+            //Función que realiza clic según sea la capa visible a través del parámetro "visibleInicio"
+            function clicInputRadio (casilla) {
+                if (casilla.layer.visibleInicio !== undefined) {
+                    if (!casilla.layer.visibleInicio) {
+                        //Si la casilla está activa
+                        if( $(casilla.input).is(':checked') ) {
+                            setTimeout(function(){$(casilla.input).click();}, 1);
+                        }
+                    } else {
+                        //Si la casilla está está desactivada
+                        if( !$(casilla.input).is(':checked') ) {
+                            setTimeout(function(){$(casilla.input).click();}, 1);
+                        }
+                    }
+                }
+            }
             /////////////////////////////////////
-            //Activa inicialmente el primer radioLeaf con visibleInicio:true.
-            //Si no existe ninguno, no se modifica el estado (el último radio renderizado queda seleccionado por HTML).
-            if (!overlay) {
-                var _ctx = this;
-                function _recogerHojasRadio(nodo, resultado) {
-                    if (!nodo) return;
-                    if (nodo.radioLeaf) {
-                        resultado.push(nodo);
-                    } else if (nodo.children && nodo.children.length) {
-                        nodo.children.forEach(function (hijo) { _recogerHojasRadio(hijo, resultado); });
+            //Función añadida para desactivar capas inicialmente, según el parámetro visibleInicio
+            if (tree && tree.children && tree.children.length) {
+                tree.children.forEach(function(child) {
+                    if (child.children && child.children.length) {
+                        child.children.forEach(function(child2) {
+                            if (child2.children && child2.children.length) {
+                                child2.children.forEach(function(child3) {
+                                    //Tercer nivel (por ahora el último nivel posible)
+                                    clicInputRadio(child3);
+                                });
+                            } else {
+                                    //Segundo nivel (No debería entrar nunca, pero se deja para el futuro)
+                                    clicInputRadio(child2);
+                            }
+                        });
+                    } else {
+                        //Primer nivel
+                        clicInputRadio(child);
                     }
-                }
-                var _hojasRadio = [];
-                _recogerHojasRadio(tree, _hojasRadio);
-                var _primeraVisible = null;
-                for (var _i = 0; _i < _hojasRadio.length; _i++) {
-                    if (_hojasRadio[_i].layer && _hojasRadio[_i].layer.visibleInicio === true) {
-                        _primeraVisible = _hojasRadio[_i];
-                        break;
-                    }
-                }
-                if (_primeraVisible && _primeraVisible.input && !_primeraVisible.input.checked) {
-                    _primeraVisible.input.checked = true;
-                    _ctx._onInputClick();
-                }
+                });
             }
             ////////////////////////////////////////////////////////
         },
 
         // Create the "Collapse all" or expand, if needed.
-        _expandCollapseAll: function (overlay, text, fn, ctx) {
+        _expandCollapseAll: function(overlay, text, fn, ctx) {
             var container = overlay ? this._overlaysList : this._baseLayersList;
             ctx = ctx ? ctx : this;
             if (text) {
@@ -322,7 +333,7 @@
                 container.appendChild(o);
                 o.innerHTML = text;
                 o.tabIndex = 0;
-                L.DomEvent.on(o, 'click keydown', function (e) {
+                L.DomEvent.on(o, 'click keydown', function(e) {
                     if (e.type !== 'keydown' || e.keyCode === 32) {
                         o.blur()
                         fn.call(ctx, overlay);
@@ -333,7 +344,7 @@
         },
 
         // recursive funtion to create the DOM children
-        _iterateTreeLayout: function (tree, container, overlay, selAllNodes, noShow) {
+        _iterateTreeLayout: function(tree, container, overlay, selAllNodes, noShow) {
             if (!tree) return;
             function creator(type, cls, append, innerHTML) {
                 var obj = L.DomUtil.create(type, cls, append);
@@ -363,7 +374,7 @@
                 var selectedAll = true;
                 var selectedNone = true;
                 var inputs = ancestor.querySelectorAll('input[type=checkbox]');
-                [].forEach.call(inputs, function (inp) { // to work in node for tests
+                [].forEach.call(inputs, function(inp) { // to work in node for tests
                     if (inp === selector) {
                         // ignore
                     } else if (inp.indeterminate) {
@@ -389,8 +400,8 @@
 
 
             function manageSelectorsAll(input, ctx) {
-                selAllNodes.forEach(function (ancestor) {
-                    L.DomEvent.on(input, 'click', function (ev) {
+                selAllNodes.forEach(function(ancestor) {
+                    L.DomEvent.on(input, 'click', function(ev) {
                         updateSelAllCheckbox(ancestor)
                     }, ctx)
                 }, ctx);
@@ -404,17 +415,17 @@
 
             if (tree.selectAllRadio) {
 
-                if (tree.checked) {
-                    selAll = this._createCheckboxElement(true);
-                } else {
-                    selAll = this._createCheckboxElement(false);
-                }
+            if (tree.checked) {
+                selAll = this._createCheckboxElement(true);
+            }else{
+                selAll = this._createCheckboxElement(false);
+            }
                 selAll.className += ' ' + this.cls.selAllRadio;
             }
 
             if (tree.radioLeaf) {
                 var checked = this._map.hasLayer(tree.layer);
-                selAll = this._createRadioElement("nombre", checked);
+                selAll = this._createRadioElement("nombre",checked);
                 selAll.className += ' ' + this.cls.selAllRadio;
                 /////////////////////////////
                 tree.input = selAll;
@@ -423,7 +434,7 @@
                 if (this._mapaLeyenda.controlLeyenda !== undefined) {
                     this._mapaLeyenda.controlLeyenda.remove();
                 }
-                rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+                rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
             }
 
             var hide = this.cls.hide; // To toggle state
@@ -433,7 +444,7 @@
                 var sensible = tree.layer ? sel : header;
                 L.DomUtil.addClass(sensible, this.cls.pointer);
                 sensible.tabIndex = 0;
-                L.DomEvent.on(sensible, 'click keydown', function (e) {
+                L.DomEvent.on(sensible, 'click keydown', function(e) {
                     if (e.type === 'keydown' && e.keyCode !== 32) {
                         return
                     }
@@ -455,7 +466,7 @@
                 if (selAll) {
                     selAllNodes.splice(0, 0, container);
                 }
-                tree.children.forEach(function (child) {
+                tree.children.forEach(function(child) {
                     var node = creator('div', this.cls.node, children)
                     this._iterateTreeLayout(child, node, overlay, selAllNodes);
                 }, this);
@@ -483,7 +494,7 @@
             // create the input and label
             var label = creator(labelType, this.cls.label, entry);
             //Añadir Iconos de tabla y funcionalidad
-            if (tree.layer !== undefined) {
+            if (tree.layer !== undefined ) {
                 if (tree.layer.datosTabla !== undefined) {
                     crearTabla(tree.layer, entry);
                 }
@@ -495,11 +506,11 @@
                 var input;
                 var radioGroup = overlay ? tree.radioGroup : 'leaflet-base-layers_' + L.Util.stamp(this);
                 if (radioGroup) {
-                    //if(tree.check){
+                  //if(tree.check){
                     //input = this._createRadioElement(radioGroup, true);
-                    //} else {
+                  //} else {
                     input = this._createRadioElement(checked);
-                    //}
+                  //}
                 } else {
                     input = this._createCheckboxElement(checked);
                     manageSelectorsAll(input, this);
@@ -510,26 +521,26 @@
                 }
                 input.layerId = L.Util.stamp(tree.layer);
                 L.DomEvent.on(input, 'click', this._onInputClick, this);
-                if (!radioGroup) {
-                    L.DomEvent.on(input, 'click', function (ev) {
-                        var capasOpacidad = {};
-                        this._mapaOpacidad.eachLayer(function (layer) {
-                            if (layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad) {
-                                capasOpacidad[layer.titulo] = layer;
+                if(!radioGroup){
+                    L.DomEvent.on(input, 'click', function(ev) {
+                        var capasOpacidad = [];
+                        this._mapaOpacidad.eachLayer(function(layer){
+                            if(layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad){
+                                capasOpacidad.push(layer);
                             }
                         });
 
                         this._mapaOpacidad.controlOpacidad.remove();
-                        if (Object.keys(capasOpacidad).length > 0) {
-                            this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad, { collapsed: true }).addTo(this._mapaOpacidad);
+                        if(capasOpacidad.length > 0){
+                            this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad).addTo(this._mapaOpacidad);
                         }
                         if (this._mapaLeyenda.controlLeyenda !== undefined) {
                             this._mapaLeyenda.controlLeyenda.remove();
                         }
-                        rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+                        rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
                         this._mapaOpacidad.closePopup();
                     }, this);
-                    if (tree.mostrarChecbox) {
+                    if(tree.mostrarChecbox){
                         label.appendChild(input);
                     }
                 }
@@ -571,24 +582,24 @@
                 if (isText(tree.selectAllCheckbox)) {
                     selAll.title = tree.selectAllCheckbox;
                 }
-                L.DomEvent.on(selAll, 'click', function (ev) {
+                L.DomEvent.on(selAll, 'click', function(ev) {
                     ev.stopPropagation();
                     selectAllCheckboxes(this);
-                    var capasOpacidad = {};
-                    this._mapaOpacidad.eachLayer(function (layer) {
-                        if (layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad) {
-                            capasOpacidad[layer.titulo] = layer;
+                    var capasOpacidad = [];
+                    this._mapaOpacidad.eachLayer(function(layer){
+                        if(layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad){
+                            capasOpacidad.push(layer);
                         }
                     });
 
                     this._mapaOpacidad.controlOpacidad.remove();
-                    if ((Object.keys(capasOpacidad).length > 0)) {
-                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad, { collapsed: true }).addTo(this._mapaOpacidad);
+                    if(capasOpacidad.length > 0){
+                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad).addTo(this._mapaOpacidad);
                     }
                     if (this._mapaLeyenda.controlLeyenda !== undefined) {
                         this._mapaLeyenda.controlLeyenda.remove();
                     }
-                    rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+                    rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
                     this._mapaOpacidad.closePopup();
                 }, this);
                 updateSelAllCheckbox(container);
@@ -601,26 +612,26 @@
                 if (isText(tree.selectAllRadio)) {
                     selAll.title = tree.selectAllRadio;
                 }
-                L.DomEvent.on(selAll, 'click', function (ev) {
+                L.DomEvent.on(selAll, 'click', function(ev) {
                     ev.stopPropagation();
-                    if (!selAll.checked) {
+                    if(!selAll.checked){
                         selectAllRadio(this);
                     }
-                    var capasOpacidad = {};
-                    this._mapaOpacidad.eachLayer(function (layer) {
-                        if (layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad) {
-                            capasOpacidad[layer.titulo] = layer;
+                    var capasOpacidad = [];
+                    this._mapaOpacidad.eachLayer(function(layer){
+                        if(layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad){
+                            capasOpacidad.push(layer);
                         }
                     });
 
                     this._mapaOpacidad.controlOpacidad.remove();
-                    if ((Object.keys(capasOpacidad).length > 0)) {
-                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad, { collapsed: true }).addTo(this._mapaOpacidad);
+                    if(capasOpacidad.length > 0){
+                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad).addTo(this._mapaOpacidad);
                     }
                     if (this._mapaLeyenda.controlLeyenda !== undefined) {
                         this._mapaLeyenda.controlLeyenda.remove();
                     }
-                    rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+                    rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,  this._colapsarLeyenda,this._mapaLeyenda);
                     this._mapaOpacidad.closePopup();
                 }, this);
                 manageSelectorsAll(selAll, this);
@@ -638,13 +649,13 @@
                 if (isText(tree.selectAllRadio)) {
                     selAll.title = tree.selectAllRadio;
                 }
-                L.DomEvent.on(selAll, 'click', function (ev) {
+                L.DomEvent.on(selAll, 'click', function(ev) {
                     for (var i = 0; i < this._listaNodosDestacados.length; i++) {
                         //this._listaNodosDestacados[i].style.borderStyle = "";
                         //this._listaNodosDestacados[i].style.borderWidth = "";
                         this._listaNodosDestacados[i].style.fontWeight = "";
                         //this._listaNodosDestacados[i].style.color = "#00677f";
-                        this._listaNodosDestacados.splice(i, 1);
+                        this._listaNodosDestacados.splice(i,1);
                         i--;
                     }
                     var a = selAll;
@@ -655,33 +666,33 @@
                     }
                     for (var i = 2; i < els.length; i++) {
                         if (els[i].className == "leaflet-layerstree-node") {
-                            var nodoDestacado = els[i].childNodes[0].childNodes[1];
-                            //nodoDestacado.style.borderStyle = "dashed";
-                            //nodoDestacado.style.borderWidth = "0.5pt";
-                            nodoDestacado.style.fontWeight = "bold";
-                            //nodoDestacado.style.color = "#0067ff";
-                            this._listaNodosDestacados.push(nodoDestacado);
+                        var nodoDestacado = els[i].childNodes[0].childNodes[1];
+                        //nodoDestacado.style.borderStyle = "dashed";
+                        //nodoDestacado.style.borderWidth = "0.5pt";
+                        nodoDestacado.style.fontWeight = "bold";
+                        //nodoDestacado.style.color = "#0067ff";
+                        this._listaNodosDestacados.push(nodoDestacado);
                         }
                     }
                     ev.stopPropagation();
-                    if (!selAll.checked) {
+                    if(!selAll.checked){
                         selectAllRadio(this);
                     }
-                    var capasOpacidad = {};
-                    this._mapaOpacidad.eachLayer(function (layer) {
-                        if (layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad) {
-                            capasOpacidad[layer.titulo] = layer;
+                    var capasOpacidad = [];
+                    this._mapaOpacidad.eachLayer(function(layer){
+                        if(layer.titulo != undefined && layer.origen != 'base' && layer.controlarOpacidad){
+                            capasOpacidad.push(layer);
                         }
                     });
 
                     this._mapaOpacidad.controlOpacidad.remove();
-                    if ((Object.keys(capasOpacidad).length > 0)) {
-                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad, { collapsed: true }).addTo(this._mapaOpacidad);
+                    if(capasOpacidad.length > 0){
+                        this._mapaOpacidad.controlOpacidad = L.control.opacity(capasOpacidad).addTo(this._mapaOpacidad);
                     }
                     if (this._mapaLeyenda.controlLeyenda !== undefined) {
                         this._mapaLeyenda.controlLeyenda.remove();
                     }
-                    rellenaLeyenda(this._idLeyenda, this._capasGeoLeyenda, this._capasWMSLeyenda, this._capasWMTSLeyenda, this._capasTreeLeyenda, this._colapsarLeyenda, this._mapaLeyenda);
+                    rellenaLeyenda(this._idLeyenda,this._capasGeoLeyenda,this._capasWMSLeyenda,this._capasWMTSLeyenda,this._capasTreeLeyenda,this._colapsarLeyenda,this._mapaLeyenda);
                     this._mapaOpacidad.closePopup();
                 }, this);
 
@@ -712,8 +723,8 @@
                 if (evented && evented.className) {
                     var obj = container.querySelector('.' + evented.className);
                     if (obj) {
-                        L.DomEvent.on(obj, evented.event || 'click', (function (selectAll) {
-                            return function (ev) {
+                        L.DomEvent.on(obj, evented.event || 'click', (function(selectAll) {
+                            return function(ev) {
                                 ev.stopPropagation();
                                 var select = isFunction(selectAll) ? selectAll(ev, container, tree, this._map) : selectAll;
                                 if (select !== undefined && select !== null) {
@@ -726,7 +737,7 @@
             }
         },
 
-        _createCheckboxElement: function (checked) {
+        _createCheckboxElement: function(checked) {
             var input = document.createElement('input');
             input.type = 'checkbox';
             input.className = 'leaflet-control-layers-selector';
@@ -745,7 +756,7 @@
 
     });
 
-    L.control.layers.treeRadio = function (base, overlays, mapa, parametrosLeyenda, options) {
+    L.control.layers.treeRadio = function(base, overlays, mapa, parametrosLeyenda, options) {
         return new L.Control.Layers.TreeRadio(base, overlays, mapa, parametrosLeyenda, options);
     }
 

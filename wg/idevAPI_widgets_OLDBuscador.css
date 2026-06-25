@@ -215,7 +215,7 @@ div[id^="cargandoPosicion_"] {
 
 #buscador {
     font-family:Roboto;
-    width: 342px;
+    width: 320px;
     opacity:0.8;
     box-sizing: border-box;
     border: 1px solid rgba(0, 103, 127,0.2);
@@ -227,95 +227,6 @@ div[id^="cargandoPosicion_"] {
 #buscador::placeholder {
     font-style: italic;
 }
-
-#fuentesBuscadorGeneral{
-	display: none;
-	position:absolute;
-	min-width:200px;
-    padding: 5px;
-	background-color: white;
-    border: 1px solid rgb(50, 153, 177);
-    border-radius: 5px;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-    font-size: 12px;
-	top: 0px;
-	right: 0px;
-	z-index: 9999;
-
-}
-
-#fuentesBuscadorGeneral fieldset {
-    margin-top: 5px;
-    padding: 5px;
-    border: 1px solid #00677F;
-    border-radius: 3px;
-}
-
-#fuentesBuscadorGeneral legend {
-    font-family: RobotoBold;
-	color: #00677F;
-}
-
-#aceptarFuentesBuscadorGeneral{
-    float: right;
-    font-family: Roboto;
-    line-height: 16px;
-    background-color: rgb(0, 103, 127);
-    border: 1px solid rgb(0, 103, 127);
-    color: rgb(201, 217, 225);
-    border-radius: 3px;
-    width: fit-content;
-    padding: 3px;
-    margin: 5px;
-}
-
-#aceptarFuentesBuscadorGeneral:hover {
-	cursor: pointer;
-}
-
-.ui-autocomplete {
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.buscadorGeneralRes {
-    max-width: 330px;
-}
-.buscadorGeneralResLabel {
-    font-family: RobotoBold;
-    color: rgb(121, 2, 2);
-    font-size: 12px;
-    text-align: left;
-    display: block;
-    width: 100%;
-    word-break: break-word;
-    white-space: normal;
-}
-
-.buscadorGeneralResInferior {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
-}
-
-.buscadorGeneralResClas {
-    font-size: 10.8px;
-    font-style: italic;
-    color: rgb(0,103,127);
-    flex: 1 1 40%;
-    word-break: break-word;
-    float: none;
-}
-
-.buscadorGeneralResDesc {
-    font-size: 9.6px;
-    color: rgb(80,80,80);
-    flex: 1 1 55%;
-    word-break: break-word;
-}
-
 
 @media only screen and (max-width: 355px) {
     #buscador {
@@ -342,21 +253,18 @@ div[id^="cargandoPosicion_"] {
 .buscadorResLabel {
     font-family:RobotoBold;
     color:rgb(121, 2, 2);
-    font-size: 12px;
 }
 
 .buscadorResClas {
 	float:right;
-	font-size: 12px;
-    /*font-size:0.9em;*/
+	font-size: .9em;
 	font-style: italic;
 	color:rgb(0,103,127);
 	margin-right:1px;
 	padding-right:0px;
 }
 .buscadorResDesc {
-    font-size: 10px;
-    /* font-size: .8em;*/
+    font-size: .8em;
     color:rgb(60,60,60);
 }
 .ui-menu-item-wrapper:hover {
