@@ -1,8 +1,12 @@
 // ******************************* CONSTRUIR LA URL A LA API ********************************************
+// idevapi cache invalidation touch 2026-06-25: force jsdelivr to re-fetch 1.3.19 and 1.3.20 tags (resolves stale CDN cache of pre-backport content)
 // ********** HTTP o HTTPS *********************
 var prot = location.protocol;
 // Si cargamos el archivo en local ponemos el protocolo a http
 if ((prot !== "http:") && (prot !== "https:")) { prot = "http:"; };
+// idevapi cache invalidation touch 2026-06-25: force jsdelivr to re-fetch 1.3.19 and 1.3.20 tags (this no-op statement survives minification to change the file ETag)
+var __idevapiTouch20260625 = 1;
+// idevapi cache invalidation touch 2026-06-25: this no-op statement survives minification to change the file ETag
 
 // ********** URL DOMINIO *********************
 //Recoje la URL donde se encuentra el script idevAPI_core.js
