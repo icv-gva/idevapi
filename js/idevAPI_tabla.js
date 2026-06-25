@@ -6,13 +6,11 @@ let layer = null;
 let layers = [];
 let contadorTablas = 0;
 let alturaMapa = 0;
-let tablaResizeObserver = null;
-let tablaAjusteProgramado = false;
 
 function crearTabla(layerInicio,entry){
-   entry.className = 'idevapi-span-tabla';
+   entry.className = 'spanTabla';
 
-   let iconoTabla = L.DomUtil.create('img', "idevapi-img-tabla");
+   let iconoTabla = L.DomUtil.create('img', "imgTabla");
    iconoTabla.src = prot + urlAPI + "/images/toc_tabla.svg";
    iconoTabla.id = 'iconoTabla' + contadorTablas;
    entry.appendChild(iconoTabla);
@@ -33,21 +31,9 @@ function crearTabla(layerInicio,entry){
 
    //Se abre o se cierra la tabla desde el inicio
    if (layerInicio.datosTabla.visibleInicio) {
-      // Esperar a que DataTables esté disponible (puede haber diferencia de
-      // timing entre la carga de jQuery y DataTables en caché fría)
-      var _intentosDT = 0;
-      var _maxIntentosDT = 50; // máximo 5 segundos
-      var _esperarDT = setInterval(function () {
-         _intentosDT++;
-         if (typeof $.fn.DataTable === 'function' ||
-             (typeof jQuery !== 'undefined' && typeof jQuery.fn.DataTable === 'function')) {
-            clearInterval(_esperarDT);
-            $(iconoTabla).trigger('click');
-         } else if (_intentosDT >= _maxIntentosDT) {
-            clearInterval(_esperarDT);
-            console.warn('idevAPI_tabla: DataTables no disponible tras 5s, tabla no abierta automáticamente.');
-         }
-      }, 100);
+      setTimeout(function () {
+         $(iconoTabla).trigger("click");
+      }, 200);
    }
 }
 
@@ -67,8 +53,7 @@ async function main (){
          }
       } catch (error) {
          $("#cargandoMapa_" + mapa.id).hide();
-         console.error('idevAPI_tabla - error en main():', error);
-         alert('Ha ocurrido un error: ' + error);
+         alert('Ha ocurrido un error:', error);
       }
    } else {
       eliminarTabla();
@@ -116,8 +101,7 @@ function inicializarContenedorTabla() {
    // CREAMOS CONTENEDOR TABLA
    let divTablaDatos = document.createElement("table");
    divTablaDatos.id = "tablaDeDatos";      
-   // NOTE (PAUPER, 2026-03-16): usar mapaId del layer para soportar multi-mapa. Antes: IDEVAPI[0].id
-   let idMapa = layer.datosTabla.mapaId || IDEVAPI[0].id;
+   let idMapa = IDEVAPI[0].id;
    let divMapa = $("#" + idMapa);
    divMapa.after(divTablaDatos);
 }
@@ -156,25 +140,14 @@ function incializarColumnasTabla() {
 }
 
 function crearDataTable(datosTabla) {
-   // Usar el jQuery que tenga DataTables registrado. En páginas con jQuery
-   // externo cargado antes de idevAPI_core.js, window.$ puede apuntar al
-   // jQuery externo (sin DataTables), mientras que window.jQuery apunta al
-   // jQuery interno que sí tiene DataTables.
-   var _jq = (typeof $.fn.DataTable === 'function') ? $ :
-             (typeof jQuery !== 'undefined' && typeof jQuery.fn.DataTable === 'function') ? jQuery : $;
-   if (typeof _jq.fn.DataTable !== 'function') {
-      throw new TypeError('DataTables no está registrado en jQuery. Comprueba que la librería está cargada correctamente.');
-   }
-   let tablaCapa = _jq('#tablaDeDatos').DataTable({
+   let tablaCapa = $('#tablaDeDatos').DataTable({
       data: datosTabla,
       columns: columnasTabla,
       select: 'single',
       scrollY: '120px',
-      scrollX: true,
       scrollCollapse: true,
       paging: false,
-      responsive: false,
-      dom: 'tpir',
+      responsive: true,
       language:{
          url: prot + urlAPI + "/js/dataTables_" + IDEVAPI_global.idioma + ".json",
          select:{
@@ -190,10 +163,6 @@ function crearDataTable(datosTabla) {
          ajustarColumnasOnResize(tablaCapa);
       }
 
-   });
-
-   tablaCapa.on('draw.idevapiTabla', function () {
-      gestionarScrollHorizontalTabla(tablaCapa);
    });
 }
 
@@ -215,194 +184,8 @@ function ajustarColumnasOnClick(tablaCapa){
 let handler;
 
 function ajustarTablaHandler(tablaCapa) {
-   ajustarAlturaWrapperTabla();
    ajustarAlturaTabla();
-   gestionarScrollHorizontalTabla(tablaCapa);
    tablaCapa.columns.adjust();
-}
-
-function gestionarScrollHorizontalTabla(tablaCapa) {
-   var wrapperEl = document.getElementById('tablaDeDatos_wrapper');
-   var bodyEl = document.querySelector('#tablaDeDatos_wrapper .dataTables_scrollBody');
-   var tablaBodyEl = document.querySelector('#tablaDeDatos_wrapper .dataTables_scrollBody table');
-   var headInnerEl = document.querySelector('#tablaDeDatos_wrapper .dataTables_scrollHeadInner');
-   var headTableEl = headInnerEl ? headInnerEl.querySelector('table') : null;
-
-   if (!wrapperEl || !bodyEl) {
-      return;
-   }
-
-   var aplicarModoAncho = function () {
-      var aplicarModoFillWidth = function () {
-         wrapperEl.classList.remove('idevapi-tabla-scroll-x');
-         wrapperEl.classList.add('idevapi-tabla-fill-width');
-
-         bodyEl.style.setProperty('overflow-x', 'hidden', 'important');
-         bodyEl.style.scrollLeft = 0;
-
-         var anchoObjetivo = bodyEl.clientWidth + 'px';
-         if (headInnerEl) {
-            headInnerEl.style.width = anchoObjetivo;
-            headInnerEl.style.minWidth = anchoObjetivo;
-         }
-         if (headTableEl) {
-            headTableEl.style.width = anchoObjetivo;
-            headTableEl.style.minWidth = anchoObjetivo;
-         }
-         if (tablaBodyEl) {
-            tablaBodyEl.style.width = anchoObjetivo;
-            tablaBodyEl.style.minWidth = anchoObjetivo;
-         }
-      };
-
-      var aplicarModoScrollX = function () {
-         wrapperEl.classList.add('idevapi-tabla-scroll-x');
-         wrapperEl.classList.remove('idevapi-tabla-fill-width');
-
-         bodyEl.style.setProperty('overflow-x', 'auto', 'important');
-
-         if (headInnerEl) {
-            headInnerEl.style.width = '';
-            headInnerEl.style.minWidth = '';
-         }
-         if (headTableEl) {
-            headTableEl.style.width = '';
-            headTableEl.style.minWidth = '';
-         }
-         if (tablaBodyEl) {
-            tablaBodyEl.style.width = '';
-            tablaBodyEl.style.minWidth = '';
-         }
-      };
-
-      // Ajuste previo para medir overflow de forma fiable.
-      if (tablaCapa && tablaCapa.columns) {
-         tablaCapa.columns.adjust();
-      }
-
-      // Histéresis para evitar quedarse en modo scroll por residuales de pocos px.
-      var UMBRAL_SALIR_SCROLL_PX = 18;
-      var UMBRAL_ENTRAR_SCROLL_PX = 34;
-      var anchoTabla = tablaBodyEl ? tablaBodyEl.scrollWidth : bodyEl.scrollWidth;
-      var overflowPx = Math.max(0, anchoTabla - bodyEl.clientWidth);
-      var estabaEnScroll = wrapperEl.classList.contains('idevapi-tabla-scroll-x');
-      var debeTenerScroll = estabaEnScroll ? (overflowPx > UMBRAL_SALIR_SCROLL_PX) : (overflowPx > UMBRAL_ENTRAR_SCROLL_PX);
-
-      if (!debeTenerScroll) {
-         aplicarModoFillWidth();
-      } else {
-         aplicarModoScrollX();
-      }
-
-      if (tablaCapa && tablaCapa.columns) {
-         tablaCapa.columns.adjust();
-      }
-
-      // Antirresidual: si tras ajustar solo sobran pocos px, forzar fill y ocultar scroll.
-      var RESIDUAL_MAX_PX = 8;
-      var overflowFinalPx = Math.max(0, bodyEl.scrollWidth - bodyEl.clientWidth);
-      if (wrapperEl.classList.contains('idevapi-tabla-scroll-x') && overflowFinalPx <= RESIDUAL_MAX_PX) {
-         aplicarModoFillWidth();
-         if (tablaCapa && tablaCapa.columns) {
-            tablaCapa.columns.adjust();
-         }
-      }
-
-      // Bloqueo final: tras los ajustes de DataTables, forzar ocultación del scroll
-      // en modo fill-width para evitar residuales de 1-2 px.
-      var lockFinalOverflow = function () {
-         if (!document.getElementById('tablaDeDatos_wrapper')) {
-            return;
-         }
-
-         if (!wrapperEl.classList.contains('idevapi-tabla-fill-width')) {
-            return;
-         }
-
-         bodyEl.style.setProperty('overflow-x', 'hidden', 'important');
-         bodyEl.scrollLeft = 0;
-
-         var overflowLockPx = Math.max(0, bodyEl.scrollWidth - bodyEl.clientWidth);
-
-         // Si el residuo es pequeño, mantenemos modo fill sin scroll.
-         if (overflowLockPx <= 16) {
-            wrapperEl.classList.remove('idevapi-tabla-scroll-x');
-            wrapperEl.classList.add('idevapi-tabla-fill-width');
-            return;
-         }
-
-         // Si realmente no cabe (overflow grande), restaurar modo scroll.
-         if (overflowLockPx > 48) {
-            aplicarModoScrollX();
-            if (tablaCapa && tablaCapa.columns) {
-               tablaCapa.columns.adjust();
-            }
-         }
-      };
-
-      if (typeof window.requestAnimationFrame === 'function') {
-         window.requestAnimationFrame(function () {
-            setTimeout(lockFinalOverflow, 0);
-         });
-      } else {
-         setTimeout(lockFinalOverflow, 0);
-      }
-   };
-
-   if (typeof window.requestAnimationFrame === 'function') {
-      window.requestAnimationFrame(aplicarModoAncho);
-   } else {
-      setTimeout(aplicarModoAncho, 0);
-   }
-}
-
-function programarAjusteTabla(tablaCapa) {
-   if (tablaAjusteProgramado) {
-      return;
-   }
-
-   tablaAjusteProgramado = true;
-   var ejecutar = function () {
-      tablaAjusteProgramado = false;
-      if (!document.getElementById('tablaDeDatos_wrapper')) {
-         return;
-      }
-
-      ajustarTablaHandler(tablaCapa);
-   };
-
-   if (typeof window.requestAnimationFrame === 'function') {
-      window.requestAnimationFrame(ejecutar);
-   } else {
-      setTimeout(ejecutar, 0);
-   }
-}
-
-function activarObservadoresTabla(tablaCapa) {
-   var wrapperEl = document.getElementById('tablaDeDatos_wrapper');
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
-   var mapEl = document.getElementById(idMapa);
-   var contenedorEl = mapEl && mapEl.parentElement ? mapEl.parentElement : null;
-
-   if (typeof ResizeObserver !== 'undefined') {
-      if (tablaResizeObserver) {
-         tablaResizeObserver.disconnect();
-      }
-
-      tablaResizeObserver = new ResizeObserver(function () {
-         programarAjusteTabla(tablaCapa);
-      });
-
-      if (wrapperEl) {
-         tablaResizeObserver.observe(wrapperEl);
-      }
-      if (mapEl) {
-         tablaResizeObserver.observe(mapEl);
-      }
-      if (contenedorEl) {
-         tablaResizeObserver.observe(contenedorEl);
-      }
-   }
 }
 
 // Crear la versión debounced de la función
@@ -421,8 +204,6 @@ function dataTableInitComplete(datatable) {
    crearfiltroPorCampo(datatable);
    crearBotones(datatable);
    resizeMapa();
-   activarObservadoresTabla(datatable);
-   programarAjusteTabla(datatable);
    funcionalidadZoomAElemento(datatable);
 }
 
@@ -500,23 +281,10 @@ function createCSVFromDatatable(data) {
          }
          row.push(value);
       }
-      // Agrega tipo de geometría y coordenadas cuando sea posible.
-      // En WMS hay capas con geometrías no puntuales (p.ej. MultiPolygon).
-      let geometry = data[i].geometry || {};
-      let geometryType = geometry.type || '';
-      let latitud = '';
-      let longitud = '';
-
-      if (geometryType === 'Point' && Array.isArray(geometry.coordinates) && geometry.coordinates.length >= 2) {
-         if (typeof geometry.coordinates[1] === 'number') {
-            latitud = geometry.coordinates[1].toString().replace('.', ',');
-         }
-         if (typeof geometry.coordinates[0] === 'number') {
-            longitud = geometry.coordinates[0].toString().replace('.', ',');
-         }
-      }
-
-      row.push(geometryType);
+      // Agrega tipo de geometría, latitud y longitud
+      row.push(data[i].geometry.type);
+      let latitud = data[i].geometry.coordinates[1].toString().replace('.', ','); // Reemplaza punto por coma
+      let longitud = data[i].geometry.coordinates[0].toString().replace('.', ','); // Reemplaza punto por coma
       row.push(latitud);
       row.push(longitud);
 
@@ -562,12 +330,11 @@ function createGeoJSONFromDatatable(data) {
 
 function crearBotones(datatable) {
    // DIV CABECERA
-   $('#tablaDeDatos_wrapper').addClass('idevapi-root');
    $('#tablaDeDatos_wrapper').prepend('<div id="divTablaCabecera"></div>');
    
    // BOTON EXPORTAR A CSV
    if(layer.datosTabla.exportarCSV){
-      let botonExportarCSV = $('<button id="botonExportarCSV" class="idevapi-botones-tabla">'+ datatable.i18n('botonExportarCSV') +'</button>');
+      let botonExportarCSV = $('<button id="botonExportarCSV" class="botonesTabla">'+ datatable.i18n('botonExportarCSV') +'</button>');
       $('#divTablaCabecera').prepend(botonExportarCSV);
 
       $('#botonExportarCSV').on('click', function() {
@@ -585,7 +352,7 @@ function crearBotones(datatable) {
 
    // BOTON EXPORTAR A GEOJSON
    if(layer.datosTabla.exportarGeoJSON){
-      let botonExportarGeoJSON = $('<button id="botonExportarGeoJSON" class="idevapi-botones-tabla">'+ datatable.i18n('botonExportarGeoJSON') +'</button>');
+      let botonExportarGeoJSON = $('<button id="botonExportarGeoJSON" class="botonesTabla">'+ datatable.i18n('botonExportarGeoJSON') +'</button>');
       $('#divTablaCabecera').prepend(botonExportarGeoJSON);
    
       $('#botonExportarGeoJSON').on('click', function() {
@@ -603,7 +370,7 @@ function crearBotones(datatable) {
    
 
    // BOTONES ZOOM ELEMENTOS FILTRADOS
-   let botonZoomElementos = $('<button id="botonZoomElementos" class="idevapi-botones-tabla">' + datatable.i18n('botonZoomElementos') + '</button>');
+   let botonZoomElementos = $('<button id="botonZoomElementos" class="botonesTabla">' + datatable.i18n('botonZoomElementos') + '</button>');
    $('#divTablaCabecera').prepend(botonZoomElementos);
 
    $('#botonZoomElementos').on('click', function() {                   
@@ -637,7 +404,7 @@ function crearBotones(datatable) {
 
    // BOTON LIMPIAR FILTROS
    if(layer.datosTabla.filtros || layer.datosTabla.filtroGlobal){
-      let botonLimpiarFiltros = $('<button id="botonLimpiarFiltros" class="idevapi-botones-tabla">' + datatable.i18n('botonLimpiarFiltros') + '</button>');
+      let botonLimpiarFiltros = $('<button id="botonLimpiarFiltros" class="botonesTabla">' + datatable.i18n('botonLimpiarFiltros') + '</button>');
       $('#divTablaCabecera').prepend(botonLimpiarFiltros);
 
       $('#botonLimpiarFiltros').on('click', function() {                   
@@ -664,23 +431,15 @@ function crearBotones(datatable) {
 }
 
 function eliminarTabla(){
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
    $('.leaflet-bottom').css('margin-bottom', '0px');
    $("#tablaDeDatos").remove();
    
    $("#tablaDeDatos_wrapper").remove();
-   $('#' + idMapa).css('height', '100%');
+   $('#' + IDEVAPI[0].id).css('height', '100%');
    $('.ui-resizable-handle').remove();
    layer._map.invalidateSize();
    $('#divMinimizar').remove();
    $(document).off('click.ajustaTabla');
-   $(document).off('mousedown.resizeHandle');
-   $(document).off('mouseup.resizeHandle');
-
-   if (tablaResizeObserver) {
-      tablaResizeObserver.disconnect();
-      tablaResizeObserver = null;
-   }
 
    window.removeEventListener("resize", handler);
    //$(window).off('resize.ajustaTabla');
@@ -688,95 +447,40 @@ function eliminarTabla(){
 }
 
 function resizeMapa() {
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
-   $('#' + idMapa).css('height', '60%');
-   $("#" + idMapa).resizable({
+   $('#' + IDEVAPI[0].id).css('height', '60%');
+   $("#" + IDEVAPI[0].id).resizable({
       handles: 's',
-      stop: function(event, ui) {
-         event.stopPropagation();
-         event.preventDefault();
+      stop: function() {
          layer._map.dragging.enable(); 
-         
-         // Si la tabla está minimizada, resetear su altura para evitar inconsistencias visuales
-         if ($("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada')) {
-            $("#tablaDeDatos_wrapper").css('height', '');
-         } else {
-            stopResize();
-         }
+         stopResize();
       },
       resize: function(event, ui) {
-         // No hacer nada si la tabla está minimizada
-         if ($("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada')) {
-            return;
-         }
          layer._map.dragging.disable();        
       }
-   });
-   
-   // Prevenir que eventos del handle burbujeen al mapa
-   $(document).on('mousedown.resizeHandle', '.ui-resizable-handle', function(event) {
-      event.stopPropagation();
-   });
-   $(document).on('mouseup.resizeHandle', '.ui-resizable-handle', function(event) {
-      event.stopPropagation();
    });  
-   ajustarAlturaWrapperTabla();
    resizeInicial();
 }
 
-function ajustarAlturaWrapperTabla() {
-   // No ajustar si la tabla está minimizada
-   if ($("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada')) {
-      return;
-   }
-
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
-   var mapEl = document.getElementById(idMapa);
-   var wrapperEl = document.getElementById('tablaDeDatos_wrapper');
-
-   if (!mapEl || !wrapperEl || !mapEl.parentElement) {
-      return;
-   }
-
-   var parentHeight = mapEl.parentElement.clientHeight;
-   var mapHeight = mapEl.offsetHeight;
-
-   if (!parentHeight || parentHeight <= 0) {
-      return;
-   }
-
-   var wrapperHeight = parentHeight - mapHeight;
-   if (wrapperHeight < 90) {
-      wrapperHeight = 90;
-   }
-
-   wrapperEl.style.height = wrapperHeight + 'px';
-}
-
 function stopResize(){
-   // No ajustar si la tabla está minimizada
-   if ($("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada')) {
-      return;
-   }
-
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
-   ajustarAlturaWrapperTabla();
    ajustarAlturaTabla();
    
    // En caso de que la tabla sea muy pequeña
-   if($('#tablaDeDatos_wrapper').height() < 100){
-      $('#' + idMapa).css('height', '40%');
-      ajustarAlturaWrapperTabla();
-      ajustarAlturaTabla();
+   if($('#tablaDeDatos_wrapper').height() < 200){
+      $('#' + IDEVAPI[0].id).css('height', '40%');
+      let parentHeight = $('#tablaDeDatos_wrapper').parent().height(); 
+      let siblingHeight = $("#" + IDEVAPI[0].id).height(); 
+
+      let newHeight = parentHeight - siblingHeight; 
+
+      let margenNegativo = 160;
+      $('#tablaDeDatos_wrapper').css('height', newHeight + 'px'); 
+      $('.dataTables_scrollBody').css('height', newHeight - margenNegativo + 'px'); 
+      $('.dataTables_scrollBody').css('max-height', ''); 
    }
 }
 
 function ajustarAlturaTabla() {
-   // No ajustar si la tabla está minimizada
-   if ($("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada')) {
-      return;
-   }
-
+   
    var alturaVisualizable = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
    var alturaPagina = Math.max(
@@ -786,65 +490,17 @@ function ajustarAlturaTabla() {
    );
 
    var alturaElemento = document.getElementById(mapa.id).offsetHeight;
-   var wrapperEl = document.getElementById('tablaDeDatos_wrapper');
-   var infoEl = document.getElementById('tablaDeDatos_info');
-   var botonesEl = document.getElementById('divTablaCabecera');
-   var headEl = document.querySelector('.dataTables_scrollHead');
+   var alturaInfo = document.getElementById('tablaDeDatos_info').offsetHeight * 2;
+   var alturaTotalVisible = Math.max(alturaVisualizable, alturaPagina) - alturaElemento - alturaInfo;
 
-   var alturaInfo = infoEl ? infoEl.offsetHeight : 0;
-   var botonesHeight = botonesEl ? botonesEl.offsetHeight : 0;
-   var headHeight = headEl ? headEl.offsetHeight : 0;
-
-   var scrollContainers = document.getElementsByClassName('dataTables_scroll');
-   if (!scrollContainers || scrollContainers.length === 0) {
-      layer._map.invalidateSize();
-      return;
-   }
-
-   var scrollContainer = scrollContainers[0];
-
-   // Espacio total disponible para el wrapper cuando no hay altura explícita.
-   var alturaTotalVisible = Math.max(alturaVisualizable, alturaPagina) - alturaElemento;
-
-   // Preferimos la altura real del wrapper para soportar bien el resize manual.
-   var wrapperHeight = wrapperEl && wrapperEl.clientHeight ? wrapperEl.clientHeight : alturaTotalVisible;
-
-   // Reservar en el wrapper el espacio de cabecera de botones y pie de info.
-   var RESERVED_GAP = 0;
-   var scrollHeight = wrapperHeight - botonesHeight - alturaInfo - RESERVED_GAP;
-   if (scrollHeight < 60) {
-      scrollHeight = 60;
-   }
-   scrollContainer.style.height = scrollHeight + 'px';
-
-   // La altura del body es la del scroll menos el thead fijo de DataTables.
-   var bodyHeight = scrollHeight - headHeight;
-   if (bodyHeight < 50) bodyHeight = 50; // minimum
-
-   var bodyEl = document.getElementsByClassName('dataTables_scrollBody')[0];
-   if (bodyEl) {
-      bodyEl.style.height = bodyHeight + 'px';
-      bodyEl.style.maxHeight = '';
-   }
-
-   // Let DataTables recalculate column widths after the height change
-   // Solo si la tabla es visible (no minimizada)
-   try {
-      var wrapperEl = document.getElementById('tablaDeDatos_wrapper');
-      if (wrapperEl && wrapperEl.style.display !== 'none' && typeof $ !== 'undefined' && $.fn && $.fn.DataTable && $('#tablaDeDatos').length) {
-         var dt = $('#tablaDeDatos').DataTable();
-         if (dt && dt.columns) dt.columns.adjust();
-      }
-   } catch (e) {
-      console.warn('ajustarAlturaTabla: could not adjust DataTable columns', e);
-   }
+   document.getElementsByClassName('dataTables_scroll')[0].style.height = alturaTotalVisible + 'px';
 
    layer._map.invalidateSize();
+   
 
 }
 
 function resizeInicial() {
-   ajustarAlturaWrapperTabla();
    ajustarAlturaTabla(); 
    $('.leaflet-bottom').css('margin-bottom', '10px');
    crearBotonMinimizar();
@@ -852,72 +508,33 @@ function resizeInicial() {
 
 function crearBotonMinimizar(){
    // Crea un div y metelo dentro del mapa
-   var idMapa = (layer && layer.datosTabla && layer.datosTabla.mapaId) ? layer.datosTabla.mapaId : IDEVAPI[0].id;
-   
-   // Remover si ya existe (prevenir duplicates)
-   $('#divMinimizar').off('click.minimizar').remove();
-   
-   // Guardar la altura inicial del mapa (para poder restaurar)
-   alturaMapa = $("#" + idMapa).height();
-   
    let divMinimizar = document.createElement("div");
    divMinimizar.id = 'divMinimizar'; 
-   let divMapa = $("#" + idMapa);
+   let divMapa = $("#" + IDEVAPI[0].id);
    divMapa.append(divMinimizar);
 
-   // SVG inline con flecha hacia abajo (minimizar)
-   let svgMinimizar = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-   svgMinimizar.setAttribute('viewBox', '0 0 24 24');
-   svgMinimizar.setAttribute('width', '24');
-   svgMinimizar.setAttribute('height', '24');
-   svgMinimizar.setAttribute('fill', 'white');
-   svgMinimizar.setAttribute('style', 'display: block; margin: 0 auto;');
-   svgMinimizar.id = 'svgMinimizar';
-   
-   let pathMinimizar = document.createElementNS("http://www.w3.org/2000/svg", "path");
-   pathMinimizar.setAttribute('d', 'M4 8 L12 16 L20 8 Z');
-   svgMinimizar.appendChild(pathMinimizar);
-   
-   divMinimizar.appendChild(svgMinimizar);
+   let divIconoMinimizar = document.createElement("div");
+   divIconoMinimizar.id = 'divIconoMinimizar'; 
+   divMinimizar.append(divIconoMinimizar);
 
-   $("#divMinimizar").on("click.minimizar", function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      var isMinimized = $("#tablaDeDatos_wrapper").hasClass('idevapi-tabla-minimizada');
-      console.log('divMinimizar clicked, isMinimized:', isMinimized, 'alturaMapa:', alturaMapa);
+   // Icono de minimizar
+   let svgMinimizar = document.createElement("img");
+   svgMinimizar.id = 'svgMinimizar'; 
+   svgMinimizar.src = prot + urlAPI + "/images/minimizar.svg";
+   divIconoMinimizar.append(svgMinimizar);
+
+   $("#divMinimizar").on("click", function() {
       
-      // Maximizar (restaurar)
-      if (isMinimized) {
-         console.log('Maximizando a altura:', alturaMapa);
-         $("#tablaDeDatos_wrapper").removeClass('idevapi-tabla-minimizada');
-         $("#tablaDeDatos_wrapper").css('display', 'block').css('height', 'auto');
-         $("#" + idMapa).height(alturaMapa + 'px');
-         ajustarAlturaWrapperTabla();
-         ajustarAlturaTabla();
-         // Cambiar a flecha hacia abajo (minimizar)
-         $("#svgMinimizar path").attr('d', 'M4 8 L12 16 L20 8 Z');
-         $(".leaflet-bottom").css('margin-bottom', '10px');
+      if ($("#tablaDeDatos_wrapper").height() == 0) {
+         $("#tablaDeDatos_wrapper").height('100%');
+         $("#" + IDEVAPI[0].id).height(alturaMapa + 'px');
+         svgMinimizar.src = prot + urlAPI + "/images/minimizar.svg";     
+      } else {
+         svgMinimizar.src = prot + urlAPI + "/images/maximizar.svg";
+         alturaMapa = $("#" + IDEVAPI[0].id).height();
+         $("#tablaDeDatos_wrapper").height('0px');
+         $("#" + IDEVAPI[0].id).height('100%');
          layer._map.invalidateSize();
-         // Reactivar resize
-         $("#" + idMapa).resizable("enable");
-         // Resetear posición del botón
-         $("#divMinimizar").css('bottom', '-20px');
-      } 
-      // Minimizar
-      else {
-         console.log('Minimizando, guardando altura:', $("#" + idMapa).height());
-         alturaMapa = $("#" + idMapa).height();
-         $("#tablaDeDatos_wrapper").addClass('idevapi-tabla-minimizada');
-         $("#tablaDeDatos_wrapper").css('display', 'none');
-         $("#" + idMapa).css('height', '100%');
-         // Desactivar resize
-         $("#" + idMapa).resizable("disable");
-         // Cambiar a flecha hacia arriba (maximizar)
-         $("#svgMinimizar path").attr('d', 'M4 16 L12 8 L20 16 Z');
-         $(".leaflet-bottom").css('margin-bottom', '0px');
-         layer._map.invalidateSize();
-         // Desplazar botón hacia abajo (eje Y)
-         $("#divMinimizar").css('bottom', '-24px');
       }
    });
 }
@@ -944,11 +561,8 @@ function funcionalidadZoomAElemento(datatable) {
 }
 
 async function actualizarDatosTabla(){
-   if (!$('#tablaDeDatos').length) { return; }
    datos = await obtenerDatos();
-   var _jqAct = (typeof $.fn.DataTable === 'function') ? $ :
-                (typeof jQuery !== 'undefined' && typeof jQuery.fn.DataTable === 'function') ? jQuery : $;
-   let tablaCapa = _jqAct('#tablaDeDatos').DataTable();
+   let tablaCapa = $('#tablaDeDatos').DataTable();
    tablaCapa.clear(); 
    tablaCapa.rows.add(datos); 
    tablaCapa.draw(); 

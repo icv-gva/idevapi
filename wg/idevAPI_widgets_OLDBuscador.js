@@ -201,37 +201,7 @@ function creaBotonPosicion (id, mapa){
 }
 
 /////////////////////////////////////// BUSCADOR SOLR ///////////////////////////////////////////////////////////////////////////////////////////////////
-function showFuentesBuscadorGeneral() {
-  $("#fuentesBuscadorGeneral").show( "slow" );
-}
-
-function hideFuentesBuscadorGeneral() {
-  $("#fuentesBuscadorGeneral").hide( "slow" );
-
-  $("#buscador").autocomplete("search", $("#buscadorGeneral").val());
-
-  if ($("#buscadorFuenteTodos").prop("checked")){
-    $("#filtroFuenteBuscadorGeneralImg").attr("src", prot + urlAPI + "/images/solr_filtro.svg");
-  } else{
-    $("#filtroFuenteBuscadorGeneralImg").attr("src", prot + urlAPI + "/images/solr_filtro_relleno.svg");
-  }
-}
-
-function selectAllFuentes(){
-  checked = $("#fuentesBuscadorGeneral").find(':radio').prop("checked");
-  $("#fuentesBuscadorGeneral").find(':checkbox').prop("checked", !checked);
-}
-
-function unselectAllFuentes(){
-    if ($("#fuentesBuscadorGeneral input[type='checkbox']:checked").length>0) {
-      $("#buscadorFuenteTodos").prop("checked", false);
-    } else{
-      $("#buscadorFuenteTodos").prop("checked", true);
-    }
-}
-
-/////////////////////////////////////// BUSCADOR SOLR ///////////////////////////////////////////////////////////////////////////////////////////////////
-function creaBuscador (mapa,idioma){
+function creaBuscador (tipoDatos,mapa){
   //Se crea un "pane" para insertar resultados de de la búsqueda, con z-index = 610, por encima de los cluster (marker-pane con z-index=600)
 	if (map.getPane("capaAnalisis") == undefined) {
 		map.createPane("capaAnalisis");
@@ -264,42 +234,15 @@ function creaBuscador (mapa,idioma){
         }
         container.appendChild(form);
 
-        var index = 0;
-				if (idioma == 'va') {index=1;} 
+        html = "<div id='buscadorIzq' style='width: 20px; height: 20px;position: absolute;left: 4px;top: 4px;z-index: 1000;display:flex;align-items: center;justify-content: center;'><div id='buscadorIzqNormal' style='display:flex;align-items: center; justify-content: center;width: 20px;'><img style='width:20px;'src='" + prot + urlAPI + "/images/buscar_localizacion.svg'></div><div id='buscadorIzqBorrar' style='display:none;width:20px;height:20px; align-items: center; justify-content: center;'><img style='width:15px;'src='" + prot + urlAPI + "/images/buscar_localizacion_borrar.svg'></div></div><input id='buscador' class='leaflet-control-layers-input control-searchBar' type='text' placeholder='" + MENSAJES.textoBuscador + "'>";
 
-        var html = "<div id='buscadorIzq' style='width: 20px; height: 20px;position: absolute;left: 4px;top: 4px;z-index: 1000;display:flex;align-items: center;justify-content: center;'>";
-        html = html + "<div id='buscadorIzqNormal' style='display:flex;align-items: center; justify-content: center;width: 20px;'>";
-        html = html +     "<img style='width:20px;'src='" + prot + urlAPI + "/images/buscar_localizacion.svg'></div>";
-        html = html +  "<div id='buscadorIzqBorrar' style='display:none;width:20px;height:20px; align-items: center; justify-content: center;'>";
-        html = html +  "  <img style='width:15px;'src='" + prot + urlAPI + "/images/buscar_localizacion_borrar.svg'></div>";
-        html = html +  "</div>";
-        if  ($(window).width() >=355) { 
-          html = html +  "<input id='buscador' class='leaflet-control-layers-input control-searchBar' type='text' placeholder='" + MENSAJES.textoBuscador + "'>";
-        }
-        else {
-          html = html +  "<input id='buscador' class='leaflet-control-layers-input control-searchBar' type='text' placeholder='" + MENSAJES.textoBuscador_movil + "'>";
-        }
-        //******** NUEVO SOLR ********
-        html = html +  "<div id='filtroFuenteBuscadorGeneral' style='width:20px;height:20px; position: absolute;right: 1px;top: 6px;z-index: 1000; align-items: center; justify-content: center;' onclick='showFuentesBuscadorGeneral();'>";
-        //html = html +  "<div id='filtroFuenteBuscadorGeneral' style='width:20px;height:20px; position: absolute;right: 1px;top: 6px;z-index: 1000; align-items: center; justify-content: center;'>";
-        html = html +  "<img id='filtroFuenteBuscadorGeneralImg' style='width:18px;'src='" + prot + urlAPI + "/images/solr_filtro.svg'></div>";
-			  html = html +  "<div id='fuentesBuscadorGeneral' style='display:none;'>";
-        html = html +  "<input type='radio' id='buscadorFuenteTodos' checked='true' onclick='selectAllFuentes()' name='buscadorFuenteTodos'>";
-				html = html +  "<label style='display:inline'>"+MENSAJES.rbTodos+"</label>";
-				html = html +  "<fieldset id='fieldsetBuscador'>";
-        html = html +  "<legend>"+MENSAJES.legendFuentes+"</legend>";
-        for (var key in fuentesSolr) {
-          var label = fuentesSolr[key].label.split(";")[index];
-          html = html +"<input type='checkbox' id='buscadorFuente_" + key +"' value='"+fuentesSolr[key].value + "' onclick='unselectAllFuentes()'>" +
-             "<label for='buscadorFuente_"+key+"' style='display:inline'>"+ label +"</label><br>";
-        }
-
-				html = html +  "</fieldset>";
-
-				html = html +  "<div id='aceptarFuentesBuscadorGeneral' onClick='hideFuentesBuscadorGeneral();'>"+MENSAJES.btFiltrar+"</div>";
-        //html = html +  "<div id='aceptarFuentesBuscadorGeneral'>"+MENSAJES.btFiltrar+"</div>";
-				html = html + "</div></div>";
-
+        /*var bar = document.createElement('input');
+        bar.setAttribute("id", "buscador");
+        bar.setAttribute("class", 'leaflet-control-layers-input control-searchBar');
+        bar.setAttribute("type", "text");
+        //bar.setAttribute("placeholder", res.TextoBuscador);
+        bar.setAttribute("placeholder", MENSAJES.textoBuscador);
+        form.appendChild(bar);*/
         $(form).append(html);
         return this._container;
       },
@@ -337,45 +280,37 @@ function creaBuscador (mapa,idioma){
 				if(puntoBusqueda !== undefined){
 					mapa.removeLayer(puntoBusqueda);
 				}
-          var urlQuery = servicioBusqueda +"?start=0&limit=40";
-       
-        var data = {
-          consulta: request.term
-        };
-
-        if (!$("#buscadorFuenteTodos").prop("checked")){
-          var fuentes = [];
-          $("#fuentesBuscadorGeneral input[type='checkbox']:checked").each(function() {
-              fuentes.push($(this).val());
-          });
-
-          data.fuentes = fuentes.join(",");
+        if(tipoDatos == "municipios"){
+          var urlQuery = "//descargas.icv.gva.es/server_api/buscador/solrclient.php?start=0&limit=10&iffuente=nomenclator*&clasificacion=Capital*";
+        } else {
+          var urlQuery = "//descargas.icv.gva.es/server_api/buscador/solrclient.php?start=0&limit=10";
         }
-
         $.ajax({
           //url: prot +  "//descargas.icv.gva.es/server_api/buscador/solrclient.php?start=0&limit=10",
           url: prot + urlQuery,
-          dataType: "json",
-          data: data,
+          dataType: "jsonp",
+          data: {
+            query: request.term
+          },
           success: function(data){
             var obj = [];
             //El resultado es un vector
-            if (data.response.results.length !== undefined) {
-              for (var i in data.response.results) {
-                var item = data.response.results[i];
-                  var reg =  {
-                  label: item.nombre.length > 100 ? item.nombre.substring(0, 100) + "…" : item.nombre,
-                  value: item.nombre,
+            if (data.results.length !== undefined) {
+              for (var i in data.results) {
+                var item = data.results[i];
+                var reg =  {
+                  label: item.titulo,
+                  value: item.titulo,
                   clasificacion: item.clasificacion,
                   descripcion: item.descripcion,
-                  epsg: epsgSolr, //definido en la configuracion
-                  boundingbox: item.bbox
+                  epsg: item.epsg,
+                  boundingbox: item.boundingbox
                 }
                 obj.push(reg);
               }
             //El resultado no es un vector (Referencia catastral)
             } else {
-              var item = data.response.results;
+              var item = data.results;
               //Si hay un resultado, y no es nulo (Referencia catastral)
               if (item !== false) {
                 if (item.link !== undefined) {
@@ -412,7 +347,7 @@ function creaBuscador (mapa,idioma){
       },
       minLength: 3,
       select: function(event, ui) {
-        var bb = ui.item.boundingbox.split(',').map(parseFloat);
+        var bb = ui.item.boundingbox.split(',');
         var epsg = ui.item.epsg;
         //Si son coordenadas geográficas
         if (bb.length > 2) {  //Es un extent
@@ -463,25 +398,14 @@ function creaBuscador (mapa,idioma){
       appendTo: ".control-searchBar",
     })
     .autocomplete("instance")._renderItem = function( ul,item ) {
-      //var maxWidth = "360px";
+      var maxWidth = "360px";
 
-      return $("<li>")
-						.addClass("buscadorGeneralRes")
-						.append(`
-							<div>
-								<span class="buscadorGeneralResLabel">${item.label}</span>
-								<div class="buscadorGeneralResInferior">
-									<span class="buscadorGeneralResClas">${item.clasificacion}</span>
-									<span class="buscadorGeneralResDesc">${item.descripcion}</span>
-								</div>
-							</div>
-						`)
-						.appendTo(ul);
-      /*
       return $( "<li>" )
+        /*.append("<div style='padding:1px 0px 1px 1px;margin:0;max-width:" + maxWidth + ";'><span class='buscadorResLabel'>" + item.label + "</span><br><span id='buscadorDescripcion' class='buscadorResDesc'>" + item.descripcion + "</span></div>")
+        .appendTo( ul );*/
+
         .append("<div style='padding:1px 0px 1px 1px;margin:0;max-width:" + maxWidth + ";'><span class='buscadorResLabel'>" + item.label + "</span><span class='buscadorResClas'>" + item.clasificacion + "</span><br><span id='buscadorDescripcion' class='buscadorResDesc'>" + item.descripcion + "</span></div>")
 				.appendTo( ul );
-      */
     };
 
 
