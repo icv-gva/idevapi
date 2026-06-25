@@ -107,7 +107,15 @@ function creaBotonExpandir (id,zoomControl,mapa){
 function creaControlCoords (id, coordControl, mapa){
     var SRS = coordControl;
     var html = '<div id="divControlCoords_'+ id +'">';
-    //html += 'ETRS89 UTM H30 X= Y=';
+    if (SRS == undefined || SRS == 25830){
+        html += '<table id="tablaCoords_'+id+'"><tr><td id="tdTextoETRS89">ETRS89 UTM H30</td>';
+        html += '<td id="tdCoordX">X= </td>';
+        html += '<td id="tdCoordY">Y = </td></tr></table>';
+    } else if (SRS == 4326) {
+        html += '<table id="tablaCoords_'+id+'"><tr><td id="tdTextoWGS84">WGS84</td>';
+        html += '<td id="tdCoordLat">lat = </td>';
+        html += '<td id="tdCoordLon">lon = </td></tr></table>';
+    }
     html += '</div>';
 		$( '#'+id ).find( ".leaflet-bottom.leaflet-left").append(html);
     //$(".leaflet-bottom.leaflet-left").append(html);
@@ -162,8 +170,17 @@ function creaDivCabecera (id,titulo){
           href: prot + urlAPI + '/wg/idevAPI_widgets.css'
       });
     }
+
+    var tituloV = titulo.split(";");
+    var tituloTrad = titulo;
+    if (tituloV.length > 1) {
+        if (IDEVAPI_global.idioma == "va") { tituloTrad = tituloV[1]; } 
+        else if (IDEVAPI_global.idioma == "es") { tituloTrad = tituloV[0]; } 
+        else { if (tituloV[2] !== undefined) { tituloTrad = tituloV[2]; } else { tituloTrad = tituloV[0]; } }
+    }
+
     var html = '<div id="cabecera_'+id+'" style="height: 40px;background: #00677f;z-index: 9999;position: absolute;top: 0;width: 100%;opacity: 0.7;display: flex;justify-content: center;align-items: center;">';
-    html += '<h2 style="color: white;text-align: center;margin: 0;">'+titulo+'</h2>';
+    html += '<h2 style="color: white;text-align: center;margin: 0;">'+tituloTrad+'</h2>';
     html += '</div>';
     //$('#controles').append(html);
     $('#' + id).append(html);
