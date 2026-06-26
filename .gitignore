@@ -1,1 +1,5 @@
 node_modules/
+
+# Internal SDD/process artifacts (not for public repo)
+openspec/
+scripts/
