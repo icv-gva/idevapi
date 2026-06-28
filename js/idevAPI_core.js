@@ -20,7 +20,7 @@ function detectLoadFamily(srcCore) {
 	family = resolveJsdelivr(srcCore); if (family) return family;
 	family = resolveGVA(srcCore);      if (family) return family;
 	family = resolveLocal(srcCore);    if (family) return family;
-	return { urlAPI: "../../idevapi", URLVersion: "" };
+	return { urlAPI: "/idevapi", URLVersion: "" };
 }
 
 // jsdelivr: tag-agnostic. Matches @1.3.19, @1.3.20, @1.3.21, @1.3, @1, @latest.
@@ -41,10 +41,13 @@ function resolveGVA(srcCore) {
 	return null;
 }
 
-// Local (pattern beta): conservative — only the literal "idevapi/js/idevAPI_core" shape.
+// Local (anchor-based): depth-independent path computed from the script's own URL.
 function resolveLocal(srcCore) {
-	var m = srcCore.match(/^(.*\/)idevapi\/js\/idevAPI_core/);
-	if (m) return { urlAPI: "../../idevapi", URLVersion: "" };
+	var a = document.createElement('a');
+	a.href = srcCore;
+	var p = a.pathname;
+	var base = p.replace(/\/js\/idevAPI_core.*$/, "");
+	if (base !== p) return { urlAPI: base, URLVersion: "" };
 	return null;
 }
 
@@ -75,7 +78,7 @@ var sufMin = "-min";
 if (getScriptName().indexOf("-min.js") == -1) {sufMin = "";}
 // ************************************* VERSIONES LIBRERÍAS *********************************************
 var llDir = "lf_194"; //Directorio librerías leaflet
-var IDEVAPIVersion = "1.3.19";	//Versión menor para evitar caché en el cliente en nuevas versiones
+var IDEVAPIVersion = "1.3.19-r3";	//Versión menor para evitar caché en el cliente en nuevas versiones
 
 ////////////////////// VARIABLES GLOBALES POR DEFECTO /////////////////////////////////////////////////////////////////////
 var capaConsulta = null;
