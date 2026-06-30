@@ -33,7 +33,7 @@ const entries = [
 ];
 
 async function build() {
-    console.log('IDEVAPI 1.3.23');
+    console.log('IDEVAPI 1.3.24');
     
     for (const entry of entries) {
         const inputPath = path.join(__dirname, entry.in);

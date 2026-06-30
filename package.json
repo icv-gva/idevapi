@@ -1,6 +1,6 @@
 {
   "name": "idevapi",
-  "version": "1.3.23",
+  "version": "1.3.24",
   "description": "IDEVAPI - Visores Cartográficos",
   "main": "js/idevAPI_core.js",
   "scripts": {
