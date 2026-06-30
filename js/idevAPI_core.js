@@ -79,7 +79,7 @@ var sufMin = "-min";
 if (getScriptName().indexOf("-min.js") == -1) { sufMin = ""; }
 // ************************************* VERSIONES LIBRERÍAS *********************************************
 var llDir = "lf_194"; //Directorio librerías leaflet
-var IDEVAPIVersion = "1.3.22";	//Versión menor para evitar caché en el cliente en nuevas versiones
+var IDEVAPIVersion = "1.3.23";	//Versión menor para evitar caché en el cliente en nuevas versiones
 
 ////////////////////// VARIABLES GLOBALES POR DEFECTO /////////////////////////////////////////////////////////////////////
 var capaConsulta = null;

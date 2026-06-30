@@ -33,7 +33,7 @@ const entries = [
 ];
 
 async function build() {
-    console.log('Iniciando build de IDEVAPI 1.3 (refinado)...');
+    console.log('IDEVAPI 1.3.23');
     
     for (const entry of entries) {
         const inputPath = path.join(__dirname, entry.in);
@@ -49,7 +49,7 @@ async function build() {
                 entryPoints: [inputPath],
                 outfile: outputPath,
                 minify: true,
-                sourcemap: true,
+                sourcemap: false,
                 // Si es CSS, esbuild lo detecta por la extensión
                 target: entry.in.endsWith('.js') ? ['es2015'] : undefined,
                 loader: entry.in.endsWith('.css') ? { '.css': 'css' } : undefined
