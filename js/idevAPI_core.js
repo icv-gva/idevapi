@@ -151,6 +151,14 @@ function detectFeatures() {
 }
 
 async function loadLibraries() {
+	// urlAPI puede ser: scheme-relative ("//cdn.jsdelivr.net/...") para jsDelivr/GVA,
+	// o path-absolute ("/idevapi") para local. La concatenacion `${prot}${urlAPI}`
+	// produce "http://cdn..." (correcto) o "http:/idevapi" (un solo slash, pero
+	// el browser lo completa como URL relativo al origin actual, asi que resuelve
+	// a "http://<host>/idevapi/..."). No es un URL canonico pero funciona en
+	// browsers; cambiarlo a "${prot}//${urlAPI}" rompe el caso local porque
+	// genera "http:///idevapi" (tres slashes) que el browser trata como host
+	// "idevapi" en vez de path relativo. Dejamos el comportamiento original.
 	var base = `${prot}${urlAPI}`;
 	var v = `?v=${IDEVAPIVersion}`;
 

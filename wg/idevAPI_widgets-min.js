@@ -7,4 +7,3 @@ function creaDivControles(e){$("<link>").appendTo("head").attr({type:"text/css",
 								</div>
 							</div>
 						`).appendTo(t)},$("#buscadorIzqBorrar").click(function(){$("#buscador").val(""),$("#buscador").focus(),$("#buscadorIzqBorrar").css("display","none"),$("#buscadorIzqNormal").css("display","flex"),s!==void 0&&e.removeLayer(s)})}
-//# sourceMappingURL=idevAPI_widgets-min.js.map
