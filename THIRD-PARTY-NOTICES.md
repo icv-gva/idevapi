@@ -1,19 +1,21 @@
 # Third-Party Notices
 
-IDEVAPI vendors the following third-party open-source libraries. This file satisfies the attribution requirements of the MIT, BSD, and Apache licenses.
+IDEVAPI incluye las siguientes librerías open-source de terceros. Este archivo satisface los requisitos de atribución de las licencias MIT, BSD y Apache.
+
+> **Nota sobre los textos legales**: Los bloques de código con el texto de cada licencia se reproducen en su idioma original (inglés) porque **únicamente esas versiones tienen valor legal**. Las traducciones de los metadatos y descripciones que aparecen en este archivo son informales y no vinculan jurídicamente; en caso de discrepancia prevalece el texto en inglés publicado por la Free Software Foundation, el proyecto original o la Apache Software Foundation.
 
 ---
 
-## Core Third-Party Libraries
+## Librerías de terceros principales
 
 ### jQuery 3.7.1
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: OpenJS Foundation and other contributors, https://openjsf.org/
-- **Source**: https://jquery.com/
-- **License text**: https://jquery.org/license/
-- **Local path**: `lib/jq_3.7.1/jquery-3.7.1-min.js`
-- **Used by**: All visors — base DOM library; required by Select2, DataTables, jQuery UI, and IDEVAPI core
+- **Fuente**: https://jquery.com/
+- **Texto de la licencia**: https://jquery.org/license/
+- **Ruta local**: `lib/jq_3.7.1/jquery-3.7.1-min.js`
+- **Usado por**: Todos los visores — librería DOM base; requerida por Select2, DataTables, jQuery UI y el núcleo de IDEVAPI
 
 ```
 Copyright OpenJS Foundation and other contributors, https://openjsf.org/
@@ -40,12 +42,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### jQuery UI 1.12.1
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: jQuery Foundation and other contributors, https://jquery.org/
-- **Source**: https://jqueryui.com/
-- **License text**: https://github.com/jquery/jquery-ui/blob/1.12.1/LICENSE.txt
-- **Local path**: `lib/jq-ui-1.12.1/jquery-ui.min.js`, `lib/jq-ui-1.12.1/jquery.ui.touch-punch.min.js`
-- **Used by**: Dialog, resizable, draggable, and button widgets in visor UIs
+- **Fuente**: https://jqueryui.com/
+- **Texto de la licencia**: https://github.com/jquery/jquery-ui/blob/1.12.1/LICENSE.txt
+- **Ruta local**: `lib/jq-ui-1.12.1/jquery-ui.min.js`, `lib/jq-ui-1.12.1/jquery.ui.touch-punch.min.js`
+- **Usado por**: Widgets de diálogo, redimensionado, arrastre y botón en las interfaces de los visores
 
 ```
 Copyright jQuery Foundation and other contributors, https://jquery.org/
@@ -76,12 +78,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### DataTables 1.10.21
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2008-2015 SpryMedia Limited, http://datatables.net
-- **Source**: https://datatables.net/
-- **License text**: https://datatables.net/license/mit
-- **Local path**: `lib/dataTables_1.10.21/datatables-min.js`
-- **Used by**: Tabular attribute display in visor info panels
+- **Fuente**: https://datatables.net/
+- **Texto de la licencia**: https://datatables.net/license/mit
+- **Ruta local**: `lib/dataTables_1.10.21/datatables-min.js`
+- **Usado por**: Visualización tabular de atributos en los paneles de información del visor
 
 ```
 Copyright (c) 2008-2015 SpryMedia Limited
@@ -108,12 +110,12 @@ THE SOFTWARE.
 
 ### Select2 4.1.0
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2012-2017 Kevin Brown, Igor Vaynberg, and Select2 contributors
-- **Source**: https://select2.org/
-- **License text**: https://github.com/select2/select2/blob/4.1.0-rc.0/LICENSE.md
-- **Local path**: `lib/select2_4.1.0/select2.min.js`
-- **Used by**: Enhanced dropdowns in visor filters and layer selectors
+- **Fuente**: https://select2.org/
+- **Texto de la licencia**: https://github.com/select2/select2/blob/4.1.0-rc.0/LICENSE.md
+- **Ruta local**: `lib/select2_4.1.0/select2.min.js`
+- **Usado por**: Desplegables enriquecidos en los filtros del visor y selectores de capas
 
 ```
 The MIT License (MIT)
@@ -141,12 +143,12 @@ THE SOFTWARE.
 
 ### proj4js 2.15.0
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2014 Mike Adair, Richard Greenwood, Didier Richard, Stephen Irons, Olivier Terral, and Calvin Metcalf
-- **Source**: https://github.com/proj4js/proj4js
-- **License text**: https://github.com/proj4js/proj4js/blob/main/LICENSE.md
-- **Local path**: `lib/proj4js-2.15.0/proj4.js`
-- **Used by**: Coordinate reprojection for WMS/WMTS layers in non-Web Mercator projections
+- **Fuente**: https://github.com/proj4js/proj4js
+- **Texto de la licencia**: https://github.com/proj4js/proj4js/blob/main/LICENSE.md
+- **Ruta local**: `lib/proj4js-2.15.0/proj4.js`
+- **Usado por**: Reproyección de coordenadas para capas WMS/WMTS en proyecciones distintas a Web Mercator
 
 ```
 Copyright (c) 2014, Mike Adair, Richard Greenwood, Didier Richard, Stephen Irons,
@@ -173,12 +175,12 @@ DEALINGS IN THE SOFTWARE.
 
 ### Turf.js 6.5.0
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2019 Morgan Herlocker
-- **Source**: https://turfjs.org/
-- **License text**: https://github.com/Turfjs/turf/blob/v6.5.0/LICENSE
-- **Local path**: `lib/turf_6.5.0/turf.min.js`
-- **Used by**: Geometric operations (polygon intersection, buffer) for spatial queries
+- **Fuente**: https://turfjs.org/
+- **Texto de la licencia**: https://github.com/Turfjs/turf/blob/v6.5.0/LICENSE
+- **Ruta local**: `lib/turf_6.5.0/turf.min.js`
+- **Usado por**: Operaciones geométricas (intersección de polígonos, buffer) para consultas espaciales
 
 ```
 The MIT License (MIT)
@@ -205,16 +207,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ---
 
-## Leaflet and Plugins
+## Leaflet y plugins
 
 ### Leaflet 1.9.4
 
-- **License**: BSD-2-Clause
+- **Licencia**: BSD-2-Clause
 - **Copyright**: 2010-2023 Volodymyr Agafonkin; 2010-2011 CloudMade
-- **Source**: https://leafletjs.com/
-- **License text**: https://github.com/Leaflet/Leaflet/blob/v1.9.4/LICENSE
-- **Local path**: `lf_194/leaflet.js`
-- **Used by**: Core map rendering engine for all visors
+- **Fuente**: https://leafletjs.com/
+- **Texto de la licencia**: https://github.com/Leaflet/Leaflet/blob/v1.9.4/LICENSE
+- **Ruta local**: `lf_194/leaflet.js`
+- **Usado por**: Motor de renderizado de mapas base para todos los visores
 
 ```
 BSD 2-Clause License
@@ -247,12 +249,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Leaflet.WMS
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2014-2016 Houston Engineering, Inc.
-- **Source**: https://github.com/heigeo/leaflet.wms
-- **License text**: https://github.com/heigeo/leaflet.wms/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/leaflet.wms-min.js`
-- **Used by**: WMS GetFeatureInfo overlay for map click queries
+- **Fuente**: https://github.com/heigeo/leaflet.wms
+- **Texto de la licencia**: https://github.com/heigeo/leaflet.wms/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/leaflet.wms-min.js`
+- **Usado por**: Capa de GetFeatureInfo WMS para consultas al hacer clic en el mapa
 
 ```
 The MIT License (MIT)
@@ -279,12 +281,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### Leaflet.MarkerCluster
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2012 David Leaver
-- **Source**: https://github.com/Leaflet/Leaflet.markercluster
-- **License text**: https://github.com/Leaflet/Leaflet.markercluster/blob/master/MIT-LICENCE.txt
-- **Local path**: `lf_194/plugins/markerCluster/leaflet.markercluster.js`
-- **Used by**: Clustered point display for high-density GeoJSON/WFS layers
+- **Fuente**: https://github.com/Leaflet/Leaflet.markercluster
+- **Texto de la licencia**: https://github.com/Leaflet/Leaflet.markercluster/blob/master/MIT-LICENCE.txt
+- **Ruta local**: `lf_194/plugins/markerCluster/leaflet.markercluster.js`
+- **Usado por**: Visualización agrupada de puntos para capas GeoJSON/WFS de alta densidad
 
 ```
 Copyright 2012 David Leaver
@@ -311,12 +313,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### Leaflet.GestureHandling
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2018 elmarquis
-- **Source**: https://github.com/elmarquis/Leaflet.GestureHandling
-- **License text**: https://github.com/elmarquis/Leaflet.GestureHandling/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/gestureHandling/leaflet-gesture-handling.min.js`
-- **Used by**: Prevents map scroll hijack on touch devices
+- **Fuente**: https://github.com/elmarquis/Leaflet.GestureHandling
+- **Texto de la licencia**: https://github.com/elmarquis/Leaflet.GestureHandling/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/gestureHandling/leaflet-gesture-handling.min.js`
+- **Usado por**: Evita el secuestro del scroll del mapa en dispositivos táctiles
 
 ```
 MIT License
@@ -344,45 +346,44 @@ SOFTWARE.
 
 ### Leaflet.Measure
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: ljagostini and contributors
-- **Source**: https://github.com/ljagostini/leaflet-measure
-- **License text**: https://github.com/ljagostini/leaflet-measure (LICENSE in repo root)
-- **Local path**: `lf_194/plugins/leaflet.measure/leaflet-measure-min.js`
-- **Used by**: Distance and area measurement tool on the map
+- **Fuente**: https://github.com/ljagostini/leaflet-measure
+- **Texto de la licencia**: https://github.com/ljagostini/leaflet-measure (LICENSE in repo root)
+- **Ruta local**: `lf_194/plugins/leaflet.measure/leaflet-measure-min.js`
+- **Usado por**: Herramienta de medición de distancias y áreas en el mapa
 
 ```
 MIT License
 
 Copyright (c) ljagostini and contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 ### Leaflet.Locate
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2014 Dominik Moritz
-- **Source**: https://github.com/domoritz/leaflet-locatecontrol
-- **License text**: https://github.com/domoritz/leaflet-locatecontrol/blob/gh-pages/LICENSE.md
-- **Local path**: `lf_194/plugins/locatePosition/L.Control.Locate.min.js` (+ 2 CSS)
-- **Used by**: Geolocation button that centers the map on the user's position
+- **Fuente**: https://github.com/domoritz/leaflet-locatecontrol
+- **Texto de la licencia**: https://github.com/domoritz/leaflet-locatecontrol/blob/gh-pages/LICENSE.md
+- **Ruta local**: `lf_194/plugins/locatePosition/L.Control.Locate.min.js` (+ 2 CSS)
+- **Usado por**: Botón de geolocalización que centra el mapa en la posición del usuario
 
 ```
 The MIT License (MIT)
@@ -410,12 +411,12 @@ THE SOFTWARE.
 
 ### Leaflet Browser Print
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: Rowan Winsemius and contributors
-- **Source**: https://github.com/rowanwins/leaflet-browser-print
-- **License text**: https://github.com/rowanwins/leaflet-browser-print/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/leafletPrint/leaflet.browser.print.js`
-- **Used by**: Map print/export functionality
+- **Fuente**: https://github.com/rowanwins/leaflet-browser-print
+- **Texto de la licencia**: https://github.com/rowanwins/leaflet-browser-print/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/leafletPrint/leaflet.browser.print.js`
+- **Usado por**: Funcionalidad de impresión/exportación del mapa
 
 ```
 MIT License
@@ -433,22 +434,21 @@ The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 ### Leaflet TimeDimension
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: 2014 ICTS SOCIB - Servei d'observacio i prediccio costaner de les Illes Balears
-- **Source**: https://github.com/socib/Leaflet.TimeDimension
-- **License text**: https://github.com/socib/Leaflet.TimeDimension/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/timedimension/leaflet.timedimension.src.js`
-- **Used by**: Time-slider animation for temporal WMS layers
+- **Fuente**: https://github.com/socib/Leaflet.TimeDimension
+- **Texto de la licencia**: https://github.com/socib/Leaflet.TimeDimension/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/timedimension/leaflet.timedimension.src.js`
+- **Usado por**: Animación con control deslizante de tiempo para capas WMS temporales
 
 ```
 Copyright (c) 2014 ICTS SOCIB - Servei d'observacio i prediccio costaner de les Illes Balears.
@@ -468,18 +468,18 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 ```
 
 ### Leaflet Sync
 
-- **License**: BSD-3-Clause
+- **Licencia**: BSD-3-Clause
 - **Copyright**: 2013-2017 Bjorn Sandvik / Jan Pieter Waagmeester
-- **Source**: https://github.com/jieter/Leaflet.Sync
-- **License text**: https://github.com/jieter/Leaflet.Sync/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/syncMaps/L.Map.Sync.js`
-- **Used by**: Synchronized multi-map views (e.g., split-pane comparison)
+- **Fuente**: https://github.com/jieter/Leaflet.Sync
+- **Texto de la licencia**: https://github.com/jieter/Leaflet.Sync/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/syncMaps/L.Map.Sync.js`
+- **Usado por**: Vistas sincronizadas de varios mapas (por ejemplo, comparación en paneles divididos)
 
 ```
 Copyright (c) 2013-2017 Bjorn Sandvik / Jan Pieter Waagmeester
@@ -511,12 +511,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Leaflet.Control.Layers.Tree
 
-- **License**: BSD-3-Clause
+- **Licencia**: BSD-3-Clause
 - **Copyright**: 2017 Javier Jimenez Shaw
-- **Source**: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree
-- **License text**: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/layersTree/L.Control.Layers.Tree.js`
-- **Used by**: Hierarchical tree layer switcher in the layer control
+- **Fuente**: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree
+- **Texto de la licencia**: https://github.com/jjimenezshaw/Leaflet.Control.Layers.Tree/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/layersTree/L.Control.Layers.Tree.js`
+- **Usado por**: Selector de capas con árbol jerárquico en el control de capas
 
 ```
 BSD 3-Clause License
@@ -552,45 +552,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ### Leaflet.Control.Opacity
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: lennardv2 and contributors
-- **Source**: https://github.com/lennardv2/Leaflet.Control.Opacity
-- **License text**: https://github.com/lennardv2/Leaflet.Control.Opacity (LICENSE in repo root)
-- **Local path**: `lf_194/plugins/controlOpacity/L.Control.Opacity.js`
-- **Used by**: Per-layer opacity slider control
+- **Fuente**: https://github.com/lennardv2/Leaflet.Control.Opacity
+- **Texto de la licencia**: https://github.com/lennardv2/Leaflet.Control.Opacity (LICENSE in repo root)
+- **Ruta local**: `lf_194/plugins/controlOpacity/L.Control.Opacity.js`
+- **Usado por**: Control deslizante de opacidad por capa
 
 ```
 MIT License
 
 Copyright (c) lennardv2 and contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 ### Proj4Leaflet
 
-- **License**: BSD-2-Clause
+- **Licencia**: BSD-2-Clause
 - **Copyright**: 2012 Kartena AB
-- **Source**: https://github.com/kartena/Proj4Leaflet
-- **License text**: https://github.com/kartena/Proj4Leaflet/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/proj4leaflet/proj4leaflet.js`
-- **Used by**: Bridges proj4js coordinate reprojection with Leaflet CRS definitions
+- **Fuente**: https://github.com/kartena/Proj4Leaflet
+- **Texto de la licencia**: https://github.com/kartena/Proj4Leaflet/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/proj4leaflet/proj4leaflet.js`
+- **Usado por**: Une la reproyección de coordenadas de proj4js con las definiciones CRS de Leaflet
 
 ```
 Copyright (c) 2012, Kartena AB
@@ -611,53 +610,52 @@ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
 ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
 ### Leaflet.LayersSupport
 
-- **License**: MIT
+- **Licencia**: MIT
 - **Copyright**: jkutianski and contributors
-- **Source**: https://github.com/jkutianski/Leaflet.LayersSupport
-- **License text**: https://github.com/jkutianski/Leaflet.LayersSupport (LICENSE in repo root)
-- **Local path**: `lf_194/plugins/layersupport/layersupport.js`
-- **Used by**: Layer management utilities for multi-layer visor configurations
+- **Fuente**: https://github.com/jkutianski/Leaflet.LayersSupport
+- **Texto de la licencia**: https://github.com/jkutianski/Leaflet.LayersSupport (LICENSE in repo root)
+- **Ruta local**: `lf_194/plugins/layersupport/layersupport.js`
+- **Usado por**: Utilidades de gestión de capas para configuraciones multi-capa en visores
 
 ```
 MIT License
 
 Copyright (c) jkutianski and contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 
 ### esri-leaflet
 
-- **License**: Apache-2.0
+- **Licencia**: Apache-2.0
 - **Copyright**: 2014-2019 Environmental Systems Research Institute, Inc.
-- **Source**: https://github.com/Esri/esri-leaflet
-- **License text**: https://github.com/Esri/esri-leaflet/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/esri-leaflet-vector/esri-leaflet-min.js`
-- **Used by**: Base library for Esri ArcGIS REST service integration
+- **Fuente**: https://github.com/Esri/esri-leaflet
+- **Texto de la licencia**: https://github.com/Esri/esri-leaflet/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/esri-leaflet-vector/esri-leaflet-min.js`
+- **Usado por**: Librería base para la integración con servicios REST de Esri ArcGIS
 
 ```
 Copyright (c) 2014-2019 Environmental Systems Research Institute, Inc.
@@ -677,12 +675,12 @@ limitations under the License.
 
 ### esri-leaflet-vector
 
-- **License**: Apache-2.0
+- **Licencia**: Apache-2.0
 - **Copyright**: 2014-2024 Environmental Systems Research Institute, Inc.
-- **Source**: https://github.com/Esri/esri-leaflet-vector
-- **License text**: https://github.com/Esri/esri-leaflet-vector/blob/master/LICENSE
-- **Local path**: `lf_194/plugins/esri-leaflet-vector/esri-leaflet-vector-min.js`
-- **Used by**: Esri vector tile layer support in Leaflet
+- **Fuente**: https://github.com/Esri/esri-leaflet-vector
+- **Texto de la licencia**: https://github.com/Esri/esri-leaflet-vector/blob/master/LICENSE
+- **Ruta local**: `lf_194/plugins/esri-leaflet-vector/esri-leaflet-vector-min.js`
+- **Usado por**: Soporte de capas vectoriales de Esri en Leaflet
 
 ```
 Copyright (c) 2014-2024 Environmental Systems Research Institute, Inc.
@@ -702,9 +700,9 @@ limitations under the License.
 
 ---
 
-## Summary
+## Resumen
 
-| Library | Version | License |
+| Librería | Versión | Licencia |
 |---------|---------|---------|
 | jQuery | 3.7.1 | MIT |
 | jQuery UI | 1.12.1 | MIT |
@@ -728,4 +726,4 @@ limitations under the License.
 | esri-leaflet | — | Apache-2.0 |
 | esri-leaflet-vector | — | Apache-2.0 |
 
-IDEVAPI core code (`wg/idevAPI_widgets.js`, `js/idevAPI_*.js`, `css/idevAPI_estilos.css`, `build.js`) is first-party ICV-owned code and is not included in this third-party attribution file.
+El código del núcleo de IDEVAPI (`wg/idevAPI_widgets.js`, `js/idevAPI_*.js`, `css/idevAPI_estilos.css`, `build.js`) es código propio del ICV y **no** se incluye en este fichero de atribución de terceros; se distribuye bajo la Licencia Pública de la Unión Europea v. 1.2 (EUPL-1.2) — ver [LICENSE](LICENSE).
