@@ -57,7 +57,7 @@ En este caso, estaremos cargando la última versión patch disponible (por ejemp
 
 1. Descarga el ZIP de la librería IDEVAPI del GitHub del ICV: https://github.com/icv-gva/idevapi
 2. Descomprime y copia la carpeta en tu proyecto.
-3. Referencia el archivo ```html /js/idevAPI_core-min.js``` desde tu aplicación:
+3. Referencia el archivo ```/js/idevAPI_core-min.js``` desde tu aplicación:
 
 ```html
 <script src="idevapi-1.3.22/js/idevAPI_core-min.js"></script>
