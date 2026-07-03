@@ -118,7 +118,7 @@ La documentación de referencia está disponible en la <a href="https://geoideva
 
 ## Licencia
 
-IDEVAPI se distribuye bajo la **Licencia Pública de la Unión Europea v. 1.2 (EUPL-1.2)**, la licencia de código abierto oficial de la Comisión Europea, publicada en las 23 lenguas oficiales de la UE con idéntico valor legal. El texto íntegro en español está disponible en el archivo [LICENSE](LICENSE) y, en cualquiera de sus versiones lingüísticas, en el [portal Interoperable Europe](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
+IDEVAPI se distribuye bajo la **Licencia Pública de la Unión Europea v. 1.2 (EUPL-1.2)**, la licencia de código abierto oficial de la Comisión Europea, publicada en las 23 lenguas oficiales de la UE con idéntico valor legal. El texto canónico (en inglés) está en el archivo [LICENSE](LICENSE) y la traducción oficial al español en [LICENSE.es.md](LICENSE.es.md). Todas las versiones lingüísticas están disponibles en el [portal Interoperable Europe](https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12).
 
 Esta elección se alinea con la misión de servicio público del Institut Cartogràfic Valencià y de la Generalitat Valenciana: garantiza que las modificaciones y obras derivadas que se distribuyan permanezcan abiertas, y es compatible con las licencias de las 21 librerías de terceros utilizadas (MIT, BSD-2-Clause, BSD-3-Clause, Apache-2.0), todas ellas incluidas en la lista de licencias compatibles del Apéndice de la EUPL.
 
