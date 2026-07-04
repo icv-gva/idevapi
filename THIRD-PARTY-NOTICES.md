@@ -711,14 +711,15 @@ limitations under the License.
 - **Localizado en**: cambio `localize-external-assets` (2026-07-05)
 - **Usado por**: Tipografía base del visor (familia Roboto) y títulos de capa (Roboto Condensed)
 
-### Arial Narrow Bold
+### Liberation Sans Narrow Bold
 
-- **Fuente**: Arial Narrow Bold
-- **Licencia**: Microsoft proprietary. Used under the institutional context of the Institut Cartogràfic Valencià / Generalitat Valenciana.
-- **Fuente original**: `https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/arial_narrow/arial_narrow_bold.ttf`
-- **Ruta local**: `css/fonts/arial_narrow/arial_narrow_bold.ttf`
+- **Fuente**: Liberation Sans Narrow Bold
+- **Licencia**: SIL Open Font License 1.1 (OFL)
+- **Fuente original**: `https://github.com/liberationfonts/liberation-sans-narrow`
+- **Texto de la licencia**: `css/fonts/liberation_sans_narrow/License.txt` (incluido en el paquete de fuentes)
+- **Ruta local**: `css/fonts/liberation_sans_narrow/LiberationSansNarrow-Bold.ttf`
 - **Localizado en**: cambio `localize-external-assets` (2026-07-05)
-- **Usado por**: Contador numérico de clusters de marcadores (GeoJSON)
+- **Notas**: Reemplazo métricamente compatible de Arial Narrow Bold, usado para el renderizado del contador numérico de clusters de marcadores en `idevAPI_capas_GeoJSON.js`
 
 ---
 
