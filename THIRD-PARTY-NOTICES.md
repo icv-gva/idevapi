@@ -46,7 +46,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 - **Copyright**: jQuery Foundation and other contributors, https://jquery.org/
 - **Fuente**: https://jqueryui.com/
 - **Texto de la licencia**: https://github.com/jquery/jquery-ui/blob/1.12.1/LICENSE.txt
-- **Ruta local**: `lib/jq-ui-1.12.1/jquery-ui.min.js`, `lib/jq-ui-1.12.1/jquery.ui.touch-punch.min.js`
+- **Ruta local**: `lib/jq-ui-1.12.1/jquery-ui.min.js`, `lib/jq-ui-1.12.1/jquery.ui.touch-punch.min.js`, `lib/jq-ui-1.12.1/jquery-ui.css`
+- **Nota**: Localized CSS counterpart (`jquery-ui.css`) vendored as of `localize-external-assets` (2026-07-05).
 - **Usado por**: Widgets de diálogo, redimensionado, arrastre y botón en las interfaces de los visores
 
 ```
@@ -82,7 +83,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 - **Copyright**: 2008-2015 SpryMedia Limited, http://datatables.net
 - **Fuente**: https://datatables.net/
 - **Texto de la licencia**: https://datatables.net/license/mit
-- **Ruta local**: `lib/dataTables_1.10.21/datatables-min.js`
+- **Ruta local**: `lib/dataTables_1.10.21/datatables-min.js`, `lib/dataTables_1.10.21/datatables.min.css`
+- **Nota**: Localized CSS counterpart (`datatables.min.css`) vendored as of `localize-external-assets` (2026-07-05).
 - **Usado por**: Visualización tabular de atributos en los paneles de información del visor
 
 ```
@@ -697,6 +699,26 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+### Roboto fonts
+
+- **Fuente**: Roboto (Regular, Bold) y Roboto Condensed (Regular)
+- **Licencia**: Apache-2.0
+- **Copyright**: Google LLC
+- **Fuente original**: https://fonts.google.com/specimen/Roboto
+- **Texto de la licencia**: https://www.apache.org/licenses/LICENSE-2.0
+- **Ruta local**: `css/fonts/roboto/Roboto-Regular.ttf`, `css/fonts/roboto/Roboto-Bold.ttf`, `css/fonts/roboto/RobotoCondensed-Regular.ttf`
+- **Localizado en**: cambio `localize-external-assets` (2026-07-05)
+- **Usado por**: Tipografía base del visor (familia Roboto) y títulos de capa (Roboto Condensed)
+
+### Arial Narrow Bold
+
+- **Fuente**: Arial Narrow Bold
+- **Licencia**: Microsoft proprietary. Used under the institutional context of the Institut Cartogràfic Valencià / Generalitat Valenciana.
+- **Fuente original**: `https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/arial_narrow/arial_narrow_bold.ttf`
+- **Ruta local**: `css/fonts/arial_narrow/arial_narrow_bold.ttf`
+- **Localizado en**: cambio `localize-external-assets` (2026-07-05)
+- **Usado por**: Contador numérico de clusters de marcadores (GeoJSON)
 
 ---
 

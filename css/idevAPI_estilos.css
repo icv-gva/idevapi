@@ -6,27 +6,27 @@
 @import "../lf_194/plugins/leaflet.measure/leaflet-measure.css";
 @import "../lf_194/plugins/gestureHandling/leaflet-gesture-handling.css";
 @import "../wg/idevAPI_widgets.css";
-@import "https://cdn.datatables.net/v/dt/dt-1.10.21/sl-1.3.1/datatables.min.css";
-@import "https://icv.gva.es/auto/aplicaciones/visor_gva_s/jquery-ui-1.12.1.custom/jquery-ui.css";
+@import "../lib/dataTables_1.10.21/datatables.min.css";
+@import "../lib/jq-ui-1.12.1/jquery-ui.css";
 
 @font-face {
 	font-family: Roboto;
-	src: url(https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/roboto/Roboto-Regular.ttf);
+	src: url(../css/fonts/roboto/Roboto-Regular.ttf);
 }
 
 @font-face {
 	font-family: RobotoBold;
-	src: url(https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/roboto/Roboto-Bold.ttf);
+	src: url(../css/fonts/roboto/Roboto-Bold.ttf);
 }
 
 @font-face {
 	font-family: RobotoCondensed;
-	src: url(https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/roboto/RobotoCondensed-Regular.ttf);
+	src: url(../css/fonts/roboto/RobotoCondensed-Regular.ttf);
 }
 
 @font-face {
 	font-family: ArialNarrowBold;
-	src: url(https://icvficherosweb.icv.gva.es/ICV/repositorio/fuentes/arial_narrow/arial_narrow_bold.ttf);
+	src: url(../css/fonts/arial_narrow/arial_narrow_bold.ttf);
 }
 
 .idevapi-root.leaflet-container {
