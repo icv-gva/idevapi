@@ -260,7 +260,7 @@ function añadeCapaGeoJSON(contador, mapa, idCapa, data, capa, tipoArbol, servic
 				mapa.getPane("capaGeoJSONCluster|" + idPane).style.zIndex = (paneZIndexCapas - contador);
 			}
 			//Se definen los estilos personalizados del Cluster
-			$('head').append('<style type="text/css">.idevapi-marker-micluster-' + idCSS + ' {background-color: ' + colorClusterE + ';border-radius: ' + borderRadiusE + 'px;} .idevapi-marker-micluster-' + idCSS + ' div {width:' + anchoAltoInt + 'px ; height:' + anchoAltoInt + 'px; margin-left:' + marginInt + 'px ; margin-top:' + marginInt + 'px; border-radius:' + borderRadius + 'px ;background-color: ' + colorClusterI + ';color: ' + capa.cluster.colorTxt + ';} .idevapi-marker-micluster-' + idCSS + ' div span{line-height:' + lineHeightTxt + 'px; font-family:LiberationSansNarrow; font-size:' + fontSize + 'px;}</style>');
+			$('head').append('<style type="text/css">.idevapi-marker-micluster-' + idCSS + ' {background-color: ' + colorClusterE + ';border-radius: ' + borderRadiusE + 'px;} .idevapi-marker-micluster-' + idCSS + ' div {width:' + anchoAltoInt + 'px ; height:' + anchoAltoInt + 'px; margin-left:' + marginInt + 'px ; margin-top:' + marginInt + 'px; border-radius:' + borderRadius + 'px ;background-color: ' + colorClusterI + ';color: ' + capa.cluster.colorTxt + ';} .idevapi-marker-micluster-' + idCSS + ' div span{line-height:' + lineHeightTxt + 'px; font-family:Oswald; font-size:' + fontSize + 'px;}</style>');
 			var markerCluster = L.markerClusterGroup.layerSupport({
 				clusterPane: "capaGeoJSONCluster|" + idPane,
 				maxClusterRadius: capa.cluster.radio,	//Radio para agrupar en pixeles

@@ -25,8 +25,8 @@
 }
 
 @font-face {
-	font-family: LiberationSansNarrow;
-	src: url(../css/fonts/liberation_sans_narrow/LiberationSansNarrow-Bold.ttf);
+	font-family: Oswald;
+	src: url(../css/fonts/oswald/Oswald-SemiBold.ttf);
 }
 
 .idevapi-root.leaflet-container {

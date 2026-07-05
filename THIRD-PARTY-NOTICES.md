@@ -711,15 +711,17 @@ limitations under the License.
 - **Localizado en**: cambio `localize-external-assets` (2026-07-05)
 - **Usado por**: Tipografía base del visor (familia Roboto) y títulos de capa (Roboto Condensed)
 
-### Liberation Sans Narrow Bold
+### Oswald
 
-- **Fuente**: Liberation Sans Narrow Bold
+- **Fuente**: Oswald (peso SemiBold usado en este cambio)
 - **Licencia**: SIL Open Font License 1.1 (OFL)
-- **Fuente original**: `https://github.com/liberationfonts/liberation-sans-narrow`
-- **Texto de la licencia**: `css/fonts/liberation_sans_narrow/License.txt` (incluido en el paquete de fuentes)
-- **Ruta local**: `css/fonts/liberation_sans_narrow/LiberationSansNarrow-Bold.ttf`
-- **Localizado en**: cambio `localize-external-assets` (2026-07-05)
-- **Notas**: Reemplazo métricamente compatible de Arial Narrow Bold, usado para el renderizado del contador numérico de clusters de marcadores en `idevAPI_capas_GeoJSON.js`
+- **Copyright**: Vernon Adams y colaboradores; publicada por Google Fonts
+- **Fuente original**: https://fonts.google.com/specimen/Oswald
+- **Texto de la licencia**: https://scripts.sil.org/OFL
+- **Ruta local**: `css/fonts/oswald/Oswald-SemiBold.ttf`
+- **Localizado en**: seguimiento del cambio `localize-external-assets` (2026-07-05)
+- **Usado por**: renderizado del contador numérico de clusters de marcadores en `idevAPI_capas_GeoJSON.js`
+- **Notas**: Reemplaza a Liberation Sans Narrow Bold tras revisión visual en navegador. El TTF de Liberation Sans Narrow Bold permanece en `css/fonts/liberation_sans_narrow/` sin referenciar (respaldo provisional).
 
 ---
 
