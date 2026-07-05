@@ -240,7 +240,7 @@ function añadeCapaGeoJSON(contador, mapa, idCapa, data, capa, tipoArbol, servic
 			var tamaño = capa.cluster.tamaño;
 			var borderRadiusE = tamaño / 2;
 			var anchoAltoInt = tamaño * 0.75;
-			var lineHeightTxt = Math.round(anchoAltoInt);
+			var lineHeightTxt = anchoAltoInt;
 			var marginInt = (tamaño - anchoAltoInt) / 2;
 			var borderRadius = anchoAltoInt / 2;
 			if (tamaño > 50) {
