@@ -3,3 +3,6 @@ node_modules/
 # Internal SDD/process artifacts (not for public repo)
 openspec/
 scripts/
+
+# CodeGraph local index cache (per-machine, regenerable)
+.codegraph/
