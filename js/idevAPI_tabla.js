@@ -417,18 +417,36 @@ function ajustarColumnasOnResize(tablaCapa){
 }
 
 function dataTableInitComplete(datatable) {
-   crearfiltroGlobal();
-   crearfiltroPorCampo(datatable);
+   // crearBotones() debe ir ANTES de crearfiltroGlobal() porque crea
+   // el contenedor #divTablaCabecera donde se appendea el input del filtro.
    crearBotones(datatable);
+   crearfiltroGlobal(datatable);
+   crearfiltroPorCampo(datatable);
    resizeMapa();
    activarObservadoresTabla(datatable);
    programarAjusteTabla(datatable);
    funcionalidadZoomAElemento(datatable);
 }
 
-function crearfiltroGlobal() {
-   if(!layer.datosTabla.filtroGlobal)
+function crearfiltroGlobal(datatable) {
+   if (layer.datosTabla.filtroGlobal) {
+      // Crea el input en la cabecera, alineado a la derecha (justo a la
+      // izquierda del botón cerrar rojo). El posicionamiento se hace por
+      // CSS (order: 98) sobre el flex container #divTablaCabecera.
+      let placeholder = (datatable && datatable.i18n) ? datatable.i18n('sSearch') : 'Buscar:';
+      let $input = $('<input type="text" id="filtroGlobalInput" class="idevapi-filtro-global" placeholder="' + placeholder + '" />');
+      $('#divTablaCabecera').append($input);
+
+      $input.on('keyup change clear', function () {
+         if (datatable.search() !== this.value) {
+            datatable.search(this.value).draw();
+         }
+      });
+   } else {
+      // Si DataTables renderizó su input estándar (no es el caso con dom:'tpir'
+      // pero queda como red de seguridad), lo ocultamos.
       $('.dataTables_filter').hide();
+   }
 }
 
 function crearfiltroPorCampo(datatable) {
@@ -640,17 +658,19 @@ function crearBotones(datatable) {
       let botonLimpiarFiltros = $('<button id="botonLimpiarFiltros" class="idevapi-botones-tabla">' + datatable.i18n('botonLimpiarFiltros') + '</button>');
       $('#divTablaCabecera').prepend(botonLimpiarFiltros);
 
-      $('#botonLimpiarFiltros').on('click', function() {                   
+      $('#botonLimpiarFiltros').on('click', function() {
          $('#filtrosPersonalizados th').each(function() {
             $('input', this).val('');
          });
-                  
+         // Vacía también el input del filtro global
+         $('#filtroGlobalInput').val('');
+
          datatable.columns().every(function() {
             this.search('');
          });
 
-         datatable.search('').draw(); 
-         
+         datatable.search('').draw();
+
       });
    }
 

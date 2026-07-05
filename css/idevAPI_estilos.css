@@ -1029,7 +1029,6 @@
 
 .idevapi-root #cerrarTablaButton {
 	order: 99;
-	margin-left: auto;
 	margin-top: 0px !important;
 	background-color: #f44336;
 	color: white;
@@ -1041,8 +1040,43 @@
 	cursor: pointer;
 }
 
+/* El botón cerrar se empuja al borde derecho SOLO cuando NO hay
+   input de filtro global. Cuando hay input, el input es el que tiene
+   margin-left: auto y el cerrar queda pegado a su derecha. */
+.idevapi-root #divTablaCabecera:not(:has(#filtroGlobalInput)) #cerrarTablaButton {
+	margin-left: auto;
+}
+
 .idevapi-root #cerrarTablaButton:hover {
 	background-color: #d11b0e;
+}
+
+.idevapi-root #filtroGlobalInput {
+	order: 98;
+	margin-left: auto;
+	margin-right: 5px;
+	padding: 2px 10px;
+	border: 1px solid #00677f;
+	border-radius: 4px;
+	font-size: 13px;
+	font-family: Roboto;
+	height: 22px;
+	box-sizing: border-box;
+	width: 180px;
+	max-width: 30vw;
+	background-color: #fff;
+	color: #333;
+}
+
+.idevapi-root #filtroGlobalInput::placeholder {
+	color: #999;
+	font-style: italic;
+}
+
+.idevapi-root #filtroGlobalInput:focus {
+	outline: none;
+	border-color: #004f60;
+	box-shadow: 0 0 0 2px rgba(0, 103, 127, 0.2);
 }
 
 .idevapi-root .idevapi-span-tabla {
@@ -1318,6 +1352,14 @@
 
 	.idevapi-root #cerrarTablaButton {
 		margin-top: 0px;
+	}
+
+	.idevapi-root #filtroGlobalInput {
+		width: 110px;
+		font-size: 12px;
+		height: 20px;
+		margin-left: auto;
+		margin-right: 5px;
 	}
 
 	.idevapi-root .dataTables_scroll {

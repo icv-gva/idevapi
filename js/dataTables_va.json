@@ -7,7 +7,7 @@
     "sInfoEmpty":      "No hi ha registres disponibles",
     "sInfoFiltered":   "(filtrat de _MAX_ registres)",
     "sInfoPostFix":    "",
-    "sSearch":         "Busca:",
+    "sSearch":         "Busca",
     "sUrl":            "",
     "sInfoThousands":  ".",
     "sLoadingRecords": "Carregant...",
