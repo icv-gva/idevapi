@@ -721,7 +721,7 @@ limitations under the License.
 - **Ruta local**: `css/fonts/oswald/Oswald-SemiBold.ttf`
 - **Localizado en**: seguimiento del cambio `localize-external-assets` (2026-07-05)
 - **Usado por**: renderizado del contador numérico de clusters de marcadores en `idevAPI_capas_GeoJSON.js`
-- **Notas**: Reemplaza a Liberation Sans Narrow Bold tras revisión visual en navegador. El TTF de Liberation Sans Narrow Bold permanece en `css/fonts/liberation_sans_narrow/` sin referenciar (respaldo provisional).
+- **Notas**: Reemplaza a Liberation Sans Narrow Bold tras revisión visual en navegador. Únicamente se empaqueta y utiliza el peso SemiBold (`Oswald-SemiBold.ttf`); el archivo `Oswald-Bold.ttf` que se había incluido provisionalmente fue eliminado en el seguimiento del cambio `localize-external-assets` (2026-07-05) al confirmarse que no se necesita.
 
 ---
 
