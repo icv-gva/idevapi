@@ -27,11 +27,17 @@ IDEVAPI se puede cargar de forma sencilla de varias formas, incluyendo el `<scri
 
 ### Desde la GVA
 
+#### Última versión *minor* de IDEVAPI (1.3.x):
+
 ```html
 <script src="https://geoidevapi.gva.es/1.3/js/idevAPI_core-min.js"></script>
 ```
 
-En este caso, estaremos cargando la última versión patch disponible (por ejemplo 1.3.22).
+#### Última versión *patch* de IDEVAPI (1.3.25):
+
+```html
+<script src="https://geoidevapi.gva.es/1.3.25/js/idevAPI_core-min.js"></script>
+```
 
 ### Desde jsdelivr (CDN pública)
 
@@ -47,10 +53,10 @@ En este caso, estaremos cargando la última versión patch disponible (por ejemp
 <script src="https://cdn.jsdelivr.net/gh/icv-gva/idevapi@1.3/js/idevAPI_core-min.js"></script>
 ```
 
-#### Última versión *patch* de IDEVAPI (1.3.22):
+#### Última versión *patch* de IDEVAPI (1.3.25):
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/icv-gva/idevapi@1.3.22/js/idevAPI_core-min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/icv-gva/idevapi@1.3.25/js/idevAPI_core-min.js"></script>
 ```
 
 ### Desde local, referenciando el archivo `/js/idevAPI_core-min.js` desde tu aplicación:
@@ -60,7 +66,7 @@ En este caso, estaremos cargando la última versión patch disponible (por ejemp
 3. Referencia el archivo ```/js/idevAPI_core-min.js``` desde tu aplicación:
 
 ```html
-<script src="idevapi-1.3.22/js/idevAPI_core-min.js"></script>
+<script src="idevapi-1.3.25/js/idevAPI_core-min.js"></script>
 ```
 
 Una vez cargada la librería, y definidas las variables `IDEVAPI_global` e `IDEVAPI` que definen la configuración del mapa, se llama a la función `iniciarIdevAPI()` que inicializa el mapa. El siguiente ejemplo muestra un mapa mínimo funcional:
