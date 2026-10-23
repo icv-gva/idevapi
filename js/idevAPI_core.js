@@ -79,7 +79,7 @@ var sufMin = "-min";
 if (getScriptName().indexOf("-min.js") == -1) { sufMin = ""; }
 // ************************************* VERSIONES LIBRERÍAS *********************************************
 var llDir = "lf_194"; //Directorio librerías leaflet
-var IDEVAPIVersion = "1.3.25";	//Versión menor para evitar caché en el cliente en nuevas versiones
+var IDEVAPIVersion = "1.3.26";	//Versión menor para evitar caché en el cliente en nuevas versiones
 
 ////////////////////// VARIABLES GLOBALES POR DEFECTO /////////////////////////////////////////////////////////////////////
 var capaConsulta = null;
@@ -1419,9 +1419,7 @@ function executeIdevAPI() {
 
 					//En caso de servicios MapServer sin Alias
 					if (capa.servicio.url.indexOf("?") !== -1) { capa.servicio.url = capa.servicio.url + "&"; } else { capa.servicio.url = capa.servicio.url + "?"; }
-					if (capa.servicio.usarProxy) {
-						capa.servicio.url = proxyIDEVAPI + "?" + capa.servicio.url;
-					}
+					// Legacy proxy/usarProxy flags are accepted but transport is automatic.
 
 					if (capa.capasAGS !== "") {
 						var idCapaAux = capa.servicio.id + ";" + capa.capasAGS;
@@ -1462,10 +1460,18 @@ function executeIdevAPI() {
 							layers: capa.capas
 						})
 
-						let capaSinTimeDimensionWMS = L.nonTiledLayer.wms(capa.servicio.url, opcionesWMS);
+						let AutoProxyWMS = L.NonTiledLayer.WMS.extend({
+							_onImageError: function (event) {
+								if (!idevapiReintentaImagen(event)) {
+									L.NonTiledLayer.WMS.prototype._onImageError.call(this, event);
+								}
+							}
+						});
+						let capaSinTimeDimensionWMS = new AutoProxyWMS(capa.servicio.url, opcionesWMS);
 						capaWMS = L.timeDimension.layer.wms(capaSinTimeDimensionWMS, { formatDate: capa.formatoFecha });
 					}
 					else {
+						opcionesWMS.imageProxy = idevapiURLProxy;
 						var source = new MySource(capa.servicio.url, opcionesWMS);
 						capaWMS = source.getLayer(capa.capas);
 					}

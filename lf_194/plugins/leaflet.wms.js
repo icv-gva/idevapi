@@ -250,6 +250,7 @@
             },
             options: {
                 crs: null,
+                imageProxy: null,
                 uppercase: !1,
                 attribution: "",
                 opacity: 1,
@@ -306,14 +307,18 @@
                 var bounds = this
                     ._map
                     .getBounds();
-                var overlay = L.imageOverlay(url, bounds, {opacity: 0});
+                var imageOptions = {opacity: 0};
+                if (this.options.imageProxy) {
+                    imageOptions.errorOverlayUrl = this.options.imageProxy(url);
+                }
+                var overlay = L.imageOverlay(url, bounds, imageOptions);
                 overlay.addTo(this._map);
                 overlay.once("load", _swap, this);
                 function _swap() {
                     if (!this._map) {
                         return
                     }
-                    if (overlay._url != this._currentUrl) {
+                    if (url != this._currentUrl) {
                         this
                             ._map
                             .removeLayer(overlay);

@@ -5,7 +5,38 @@ if (typeof prot === 'undefined') {
     var prot = location.protocol;
     if ((prot !== 'http:') && (prot !== 'https:')) { prot = 'http:'; }
 }
-var proxyIDEVAPI = "https://descargas.icv.gva.es/server_api/proxyEsri/proxy.php";
+var proxyIDEVAPI = "https://descargas.icv.gva.es/00/proxy/";
+
+// CORS is enforced by the browser: denied responses cannot be inspected.
+function idevapiURLProxy(url) {
+    var base = proxyIDEVAPI.replace(/\?+$/, "") + "?";
+    return url.indexOf(base) === 0 ? url : base + url;
+}
+
+// Internal GET transport for WMS information and cadastral XML only.
+function idevapiAjaxConProxy(options) {
+    function request(url, retry) {
+        return $.ajax(Object.assign({}, options, {
+            url: url,
+            error: function (xhr, status, error) {
+                if (retry && xhr.status === 0 && status === "error" && /^https?:\/\//i.test(url)) {
+                    request(idevapiURLProxy(url), false);
+                } else if (options.error) {
+                    options.error.call(this, xhr, status, error);
+                }
+            }
+        }));
+    }
+    return request(options.url, idevapiURLProxy(options.url) !== options.url);
+}
+
+// Images need no CORS to display; retry only when loading actually fails.
+function idevapiReintentaImagen(event) {
+    var image = event.target;
+    if (!/^https?:\/\//i.test(image.src) || idevapiURLProxy(image.src) === image.src) { return false; }
+    image.src = idevapiURLProxy(image.src);
+    return true;
+}
 var URLFicherosWeb = "https://icvficherosweb.icv.gva.es/00/";
 var URLIcvEs = "https://icv.gva.es/es/"
 var URLIcvVa = "https://icv.gva.es/va/"

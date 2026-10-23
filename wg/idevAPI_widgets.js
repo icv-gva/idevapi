@@ -397,8 +397,8 @@ function creaBuscador (mapa,idioma){
               if (item !== false) {
                 if (item.link !== undefined) {
                   var enlace = item.link;
-                  $.ajax({
-                    url: proxyIDEVAPI + "?" + enlace,
+                  idevapiAjaxConProxy({
+                    url: enlace,
                     dataType: "xml",
                     success: function (responsexml){
                       console.log(responsexml);

@@ -13,6 +13,15 @@ function desplazaMapaPopup (mapa,latlng,marco) {
 //////////////////////////////////////////// POPUP Para servicios WMS /////////////////////////////////////////
 //Modificar el popup recibido desde el servicio antes de mostrarlo
 var MySource = L.WMS.Source.extend({
+  ajax: function (url, callback) {
+    var source = this;
+    return idevapiAjaxConProxy({
+      url: url,
+      dataType: "text",
+      success: function (result) { callback.call(source, result); },
+      error: function () { callback.call(source, "error"); }
+    });
+  },
   identify: function (evt) {
     //Modificado para no capturar el Info con otros eventos activos
     if (!capturandoPuntoXY) {
